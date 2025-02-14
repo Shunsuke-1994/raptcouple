@@ -2,8 +2,9 @@
 Implementation of RaptCouple. 
 
 # Install
-
-# Usage
+# Example
+`./notebooks/example`.  
+# Description
 ## Data preparation
 
 ```
