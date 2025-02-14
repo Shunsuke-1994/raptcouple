@@ -5,6 +5,17 @@ Implementation of RaptCouple.
 
 # Usage
 ## Data preparation
+
+```
+.
+├── LHa4-1R_S5_L001_R1_001.fa
+├── LHa4-2R_S6_L001_R1_001.fa
+├── LHa4-3R_S7_L001_R1_001.fa
+├── LHa4-4R_S8_L001_R1_001.fa
+└── config.yaml
+
+```
+## Preprocessing
 `python scripts/merge_and_cutadapt_all_rounds.py` performs preprocessing based on `config.yaml`.  
 Preprocessing is done in the following order: 1.cutadapt, 2.sequence merging, 3.remove seqs of small count.  
 `config.yaml` should be in this format. 
@@ -60,7 +71,8 @@ usage: train_potts.py [-h] --input_fasta INPUT_FASTA [--target TARGET] [--thresh
 
 options:
   -h, --help            show this help message and exit
-  --input_fasta INPUT_FASTA input fasta file (=alignment) 
+  --input_fasta INPUT_FASTA
+                        input fasta file (=alignment)
   --target TARGET       specified target
   --threshold THRESHOLD
                         similarity threshold for plmc (default: 0.05)
@@ -71,4 +83,5 @@ options:
 ```
 ## Folding with coupling scores
 
+## Prediction of mutation effects
 
