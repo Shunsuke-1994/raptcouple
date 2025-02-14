@@ -1,4 +1,4 @@
-name: raptcouple_test
+name: raptcouple
 channels:
 - bioconda
 - conda-forge

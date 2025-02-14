@@ -1,12 +1,13 @@
 # raptcouple_test
-Implementation of RaptCouple. 
+Code of RaptCouple, a unsupervised machine learning of SELEX data.  
+
 
 # Install
-# Example
-`./notebooks/example`.  
+```
+mamba env create -f environment.yaml
+```
 # Description
 ## Data preparation
-
 ```
 .
 ├── LHa4-1R_S5_L001_R1_001.fa
