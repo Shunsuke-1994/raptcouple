@@ -2,10 +2,14 @@
 Code of RaptCouple, a unsupervised machine learning of SELEX data.  
 
 
-# Install
+# Environment
 ```
 mamba env create -f environment.yaml
 ```
+## install plmc
+After installing [plmc](https://github.com/debbiemarkslab/plmc) as the instruction, please edit `PLMC_TO_PATH` variable in `src/coupling.py`.  
+
+
 # Description
 ## Data preparation
 ```
