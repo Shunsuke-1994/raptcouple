@@ -1,6 +1,5 @@
 # raptcouple_test
-Code of RaptCouple, a unsupervised machine learning of SELEX data.  
-
+Code of RaptCouple, a unsupervised machine learning of SELEX data. Raptcouple learns structure and fitness information from SELEX data.
 
 # Environment
 ```
