@@ -9,6 +9,7 @@ import seaborn as sns
 # import RNA
 
 # you need to specify the path to plmc
+# PATH_TO_PLMC = "plmc"
 PATH_TO_PLMC = "~/desktop/RNA/plmc/bin/plmc"
 
 
@@ -225,7 +226,7 @@ def detect_coupling(
 #     fc = RNA.fold_compound(params["target_seq"])
 #     fc.sc_set_bp(sc)
 
-    return target_seq, fc.mfe()
+#     return target_seq, fc.mfe()
 
 def fold_evalue(file_model_params, evalue = 0.01):
     params = read_params(file_model_params)

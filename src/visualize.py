@@ -40,6 +40,7 @@ def plot_from_param_file(
         pos_table,
         cmap = cmap,
         linewidths=0.5,
+        center=0,
         square=square,
         ax=axes[0],
         cbar_kws = {"label":cbar_labels[0]}
@@ -53,6 +54,7 @@ def plot_from_param_file(
         score_table,
         cmap = cmap,
         linewidths=0.5,
+        center=0,
         square=square,
         ax=axes[1],
         cbar_kws = {"label":cbar_labels[1]}
