@@ -8,7 +8,7 @@ from src.coupling import read_params
 def plot_from_param_file(
         paramfile,
         figsize = (10, 10),
-        use_gap = True,
+        use_gap = False,
         cmap = "coolwarm",
         height_ratios = [1, 10],
         title = "", 
@@ -16,7 +16,7 @@ def plot_from_param_file(
             "Positional field",
             "Frobenius Norm of APC coupling"
             ),
-        square = True
+        square = False
         ):
 
 
