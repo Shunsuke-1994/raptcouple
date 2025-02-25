@@ -1,9 +1,0 @@
-N_random: 40
-adapter_3: TATGTGCGCATACATGGATCCTC
-adapter_5: TAATACGACTCACTATAGGGAGAACTTCGACCAGAAG
-data_dir: ./example/Ishida2020/data
-fasta_annotation:
-  DRR201870.fa: Ishida2020-3R
-  DRR201871.fa: Ishida2020-4R
-  DRR201872.fa: Ishida2020-5R
-  DRR201873.fa: Ishida2020-6R

@@ -41,6 +41,7 @@ fasta_annotation:
 # remove_lowcount: # remove sequences which count is smaller than mincount.
 #   DRR201870.fa: 1
 #   DRR201871.fa: 1
+# continues...
 ```
 
 This is an example of preprocessing.

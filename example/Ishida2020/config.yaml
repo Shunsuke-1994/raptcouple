@@ -1,0 +1,31 @@
+Preprocess_parameters:
+  N_random: 40
+  adapter_3: TATGTGCGCATACATGGATCCTC
+  adapter_5: TAATACGACTCACTATAGGGAGAACTTCGACCAGAAG
+  data_dir: ./example/Ishida2020/data
+  fasta_annotation:
+    DRR201870.fa: Ishida2020-3R
+    DRR201871.fa: Ishida2020-4R
+    DRR201872.fa: Ishida2020-5R
+    DRR201873.fa: Ishida2020-6R
+  merged_fasta: Ishida2020.count.ann.all_selex.fa
+MSA_parameters:
+  target_id: Ishida2020-6R-1-2626-55264.43
+  save_dir: 
+  prefix: ""
+  iters: 10
+  F1: 0.02
+  F2: 1e-3
+  F3: 1e-4
+  T: 5
+  domT: 5
+  incT: 5
+  incdomT: 5
+  print_result: True
+Potts_parameters:
+  input_fasta: 
+  sim_threshold: 0.05
+  vocab: AUGC.
+  iters: 200
+  suffix: ""
+  print_result: True
