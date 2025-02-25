@@ -27,70 +27,66 @@ This script performs:
 1. cutadapt  
 2. sequence merging  
 3. remove seqs of small count  
-`config.yaml` should follow this format:   
+Preprocessing part of `config.yaml` should follow this format:   
 ```
-N_random: 40
-adapter_3: TATGTGCGCATACATGGATCCTC
-adapter_5: TAATACGACTCACTATAGGGAGAACTTCGACCAGAAG
-data_dir: ./example/Ishida2020/data
-fasta_annotation:
-  DRR201870.fa: Ishida2020-3R
-  DRR201871.fa: Ishida2020-4R
-  DRR201872.fa: Ishida2020-5R
-  DRR201873.fa: Ishida2020-6R
+Preprocess_parameters:
+  N_random: 40
+  adapter_3: TATGTGCGCATACATGGATCCTC
+  adapter_5: TAATACGACTCACTATAGGGAGAACTTCGACCAGAAG
+  data_dir: ./example/Ishida2020/data
+  fasta_annotation:
+    DRR201870.fa: Ishida2020-3R
+    DRR201871.fa: Ishida2020-4R
+    DRR201872.fa: Ishida2020-5R
+    DRR201873.fa: Ishida2020-6R
 # remove_lowcount: # remove sequences which count is smaller than mincount.
 #   DRR201870.fa: 1
 #   DRR201871.fa: 1
-# continues...
+  merged_fasta: Ishida2020.count.ann.all_selex.fa
 ```
 
 This is an example of preprocessing.
 ```
-python scripts/merge_and_cutadapt_all_rounds.py  \
-    --config ./example/data/Ishida2020/config.yaml \
-    --merged_fasta ./example/data/Ishida2020/Ishida2020.count.ann.all_selex.fa
+python scripts/merge_and_cutadapt_all_rounds.py --config ./example/data/Ishida2020/config.yaml
 ```
 ## MSA constraction by jackhmmer
+Set the MSA parameters in config.yaml as follows:
+```
+MSA_parameters:
+  all_fasta: ./example/Ishida2020/data/Ishida2020.count.ann.all_selex.fa
+  target_id: Ishida2020-6R-1-2626-55264.43
+  save_dir: ./example/Ishida2020/outputs
+  prefix: ""
+  iters: 10
+  F1: 0.02
+  F2: 0.001 # 1e-3
+  F3: 0.0001 # 1e-4
+  T: 5
+  domT: 5
+  incT: 5
+  incdomT: 5
+  print_result: true
+```
 Generate a multiple sequence alignment (MSA) using jackhmmer:
 ```
-python ./scripts/run_jackhmmer.py --help
-usage: run_jackhmmer.py [-h] --fasta FASTA --target TARGET --save_dir SAVE_DIR [--prefix PREFIX] [--iters ITERS] [--F1 F1] [--F2 F2] [--F3 F3] [--T T] [--domT DOMT] [--incT INCT] [--incdomT INCDOMT] [--print_result]
-
-Run jackhmmer and plmc on a fasta file
-
-options:
-  -h, --help           show this help message and exit
-  --fasta FASTA        fasta file
-  --target TARGET      target id of fasta file
-  --save_dir SAVE_DIR  directory to save results
-  --prefix PREFIX      prefix of output files
-  --iters ITERS        number of iterations for jackhmmer (default: 10)
-  --F1 F1              threshold F1 for jackhmmer (default: 0.02)
-  --F2 F2              threshold F2 for jackhmmer (default: 1e-3)
-  --F3 F3              threshold F3 for jackhmmer (default: 1e-4)
-  --T T                threshold T for jackhmmer (default: 5)
-  --domT DOMT          threshold domT for jackhmmer (default: 5)
-  --incT INCT          threshold incT for jackhmmer (default: 5)
-  --incdomT INCDOMT    threshold incdomT for jackhmmer (default: 5)
-  --print_result
+python ./scripts/run_jackhmmer.py --config ./example/data/Ishida2020/config.yaml
 ```
+Note: If the MSA depth is insufficient, consider relaxing the jackhmmer parameters (iters, F1, F2, F3, T, domT, incT, incdomT). For further details, please refer to the HMMER user guide.
+
 ## Potts model training
-
+Potts model part of `config.yaml` should follow this format:   
 ```
-python scripts/train_potts.py --help
-usage: train_potts.py [-h] --input_fasta INPUT_FASTA [--target TARGET] [--threshold THRESHOLD] [--vocab VOCAB] [--iters ITERS] [--suffix SUFFIX] [--print_result]
-
-options:
-  -h, --help            show this help message and exit
-  --input_fasta INPUT_FASTA
-                        input fasta file (=alignment)
-  --target TARGET       specified target
-  --threshold THRESHOLD
-                        similarity threshold for plmc (default: 0.05)
-  --vocab VOCAB         vocabulary for plmc (default: AUGC.)
-  --iters ITERS         number of iterations for plmc (default: 200)
-  --suffix SUFFIX       suffix for output files (default: '')
-  --print_result        print result of plmc
+Potts_parameters:
+  input_fasta: ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.msa
+  sim_threshold: 0.05
+  vocab: AUGC.
+  iters: 200
+  suffix: ""
+  print_result: true
+```
+Train the Potts model by running:
+```
+python scripts/train_potts.py --config ./example/data/Ishida2020/config.yaml
 ```
 ## Folding with coupling scores
 Once you have obtained coupling scores from the Potts model training, predict the 2D structure by using the coupling information. For example: 
