@@ -111,7 +111,7 @@ The script outputs predicted effects for each mutation, facilitating the analysi
 If you use this code, please cite the following paper:
 
 ```bibtex
-@article{
+@article{sumi2025raptcouple
   title={Learning structure and fitness of RNA discovered by SELEX},
   author={Sumi, Shunsuke and Kawahara, Daiki and Hada, Yuki and Yoshii, Tatsuyuki and Adachi, Tatsuo and Saito, Hirohide and Hamada, Michiaki},
   journal={Journal Name},        % 論文掲載ジャーナル名に置き換えてください
