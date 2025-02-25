@@ -71,7 +71,7 @@ Generate a multiple sequence alignment (MSA) using jackhmmer:
 ```
 python ./scripts/run_jackhmmer.py --config ./example/data/Ishida2020/config.yaml
 ```
-Note: If the MSA depth is insufficient, consider relaxing the jackhmmer parameters (iters, F1, F2, F3, T, domT, incT, incdomT). For further details, please refer to the HMMER user guide.
+Note: We found these parameters work for most SELEX data. But, if the MSA depth is insufficient, consider relaxing the jackhmmer parameters (iters, F1, F2, F3, T, domT, incT, incdomT). For further details, please refer to the HMMER user guide.
 
 ## Potts model training
 Potts model part of `config.yaml` should follow this format:   
