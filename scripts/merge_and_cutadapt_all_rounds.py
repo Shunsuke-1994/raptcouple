@@ -8,7 +8,7 @@ import re
 class FASTAProcessor:
     def __init__(self, config_path):
         self.config_path = config_path
-        self.config = yaml.safe_load(open(config_path, "r"))
+        self.config = yaml.safe_load(open(config_path, "r"))["Preprocess_parameters"]
         self.fasta_count = False
         self.fasta_count_ann = False
         self.fasta_count_ann_merge = False
@@ -73,17 +73,17 @@ class FASTAProcessor:
         self.fasta_count_ann = True
         return 
 
-    def merge_all_fasta(self, fasta_merged_file):
+    def merge_all_fasta(self):
         assert self.fasta_count_ann, "Run add_info_to_all_counted_fasta"
-        self.fasta_merged_file = fasta_merged_file
-        print(fasta_merged_file)
-        with open(fasta_merged_file, 'w') as fasta_trim_count_ann_all:
+        # self.fasta_merged_file = fasta_merged_file
+        print(self.fasta_merged_file)
+        with open(self.fasta_merged_file, 'w') as fasta_trim_count_ann_all:
             for fasta_file in self.config["fasta_annotation"].keys():
                 fasta_trim_count_ann_file = fasta_file.replace(".fa", ".trim.count.ann.fa")
                 with open(os.path.join(self.config["data_dir"], fasta_trim_count_ann_file), "r") as fasta_trim_count_ann:
                     fasta_trim_count_ann_all.write(fasta_trim_count_ann.read())
         self.fasta_count_ann_merge = True
-        return fasta_merged_file
+        return self.fasta_merged_file
 
     # optional
     def remove_count1_from_trimcountann_fasta(self):
@@ -175,15 +175,13 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True, type=str, help="selex config file path")
-    parser.add_argument("--merged_fasta", required=True, type=str, help="file name of merged fasta")
-
     args = parser.parse_args()
 
     proc = FASTAProcessor(args.config)
     proc.cutadapt_of_all_fasta()
     proc.remove_duplicate_of_all_trimfasta()
     proc.add_info_to_all_trimcount_fasta()
-    proc.merge_all_fasta(args.merged_fasta)
+    proc.merge_all_fasta()
     proc.remove_count1_from_trimcountann_fasta()
     proc.reuniquenize()
     proc.print_proc_info()

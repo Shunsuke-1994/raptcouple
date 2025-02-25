@@ -9,8 +9,8 @@ import seaborn as sns
 # import RNA
 
 # you need to specify the path to plmc
-# PATH_TO_PLMC = "~/desktop/RNA/plmc/bin/plmc"
-PATH_TO_PLMC = "path/to/plmc"
+PATH_TO_PLMC = "~/desktop/RNA/plmc/bin/plmc" # "path/to/plmc"
+
 
 def plmc(fasta_file, target, param_file, coupling_file, vocab, threshold = 0.01, print_result = True):
     alignments = list(SeqIO.parse(fasta_file, "fasta"))
