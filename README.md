@@ -47,7 +47,7 @@ Preprocess_parameters:
 
 This is an example of preprocessing.
 ```
-python scripts/merge_and_cutadapt_all_rounds.py --config ./example/data/Ishida2020/config.yaml
+python scripts/merge_and_cutadapt_all_rounds.py --config ./example/Ishida2020/config.yaml
 ```
 ## MSA constraction
 Set the MSA parameters (jackhmmer) in config.yaml as follows:
@@ -69,7 +69,7 @@ MSA_parameters:
 ```
 Generate a multiple sequence alignment (MSA) using jackhmmer:
 ```
-python ./scripts/run_jackhmmer.py --config ./example/data/Ishida2020/config.yaml
+python ./scripts/run_jackhmmer.py --config ./example/Ishida2020/config.yaml
 ```
 Note: We found these parameters work for most SELEX data. But, if the MSA depth is insufficient, consider relaxing the jackhmmer parameters (iters, F1, F2, F3, T, domT, incT, incdomT). For further details, please refer to the HMMER3 user guide.
 
@@ -87,19 +87,18 @@ Potts_parameters:
 sim_threshold is re-weighting parameters of each sequence in MSA. If the sequences are highly similar, smaller sim_threshold may be suitable.  
 Train the Potts model by running:
 ```
-python scripts/train_potts.py --config ./example/data/Ishida2020/config.yaml
+python scripts/train_potts.py --config ./example/Ishida2020/config.yaml
 ```
 ## Folding with coupling scores
 Once you have obtained coupling scores from the Potts model training, predict the 2D structure by using the coupling information. For example: 
 ```
-python scrits/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params --min_loop_len 3 --z_threshold 2 --output hoge
+python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params --min_loop_len 3 --z_threshold 2 --output hoge
 ```
-
 
 ## Prediction of mutation effects
 Evaluate the impact of mutations on sequence fitness and structure with:  
 ```
-
+python scripts/predict_mutation_effects.py --config ./example/Ishida2020/config.yaml --mutations ./example/data/Ishida2020/mutations.txt
 ```
 
 `mutations.txt` should list mutations in a standard format (e.g., A15G).
