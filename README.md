@@ -98,7 +98,7 @@ python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishid
 ## Prediction of mutation effects
 Evaluate the impact of mutations on sequence fitness and structure with:  
 ```
-python scripts/predict_mutation_effects.py --config ./example/Ishida2020/config.yaml --mutations ./example/data/Ishida2020/mutations.txt
+python scripts/predict_mutation_effects.py --config ./example/Ishida2020/config.yaml --mutations ./example/Ishida2020/mutations.txt
 ```
 
 `mutations.txt` should list mutations in a standard format (e.g., A15G).
