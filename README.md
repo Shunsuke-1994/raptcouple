@@ -115,6 +115,6 @@ If you use this code, please cite the following paper:
   volume={XX},                    % 巻番号に置き換えてください
   number={YY},                    % 号番号に置き換えてください
   pages={ZZ-ZZ},                  % ページ番号に置き換えてください
-  year={2025},                    % 発行年に置き換えてください
+  year={2025},
   note={Correspondence should be addressed to: mhamada@waseda.jp, hirosaito@iqb.u-tokyo.ac.jp}
 }
