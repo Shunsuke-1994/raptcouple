@@ -235,7 +235,7 @@ def fold_evalue(file_model_params, evalue = 0.01):
 
 def visualize_coupling(
         file_model_params, 
-        cmap = "cidivis", 
+        cmap = "cividis", 
         figsize = (6,4)
         ):
     params = read_params(file_model_params)
