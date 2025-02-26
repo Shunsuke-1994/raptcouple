@@ -24,9 +24,9 @@ After installing [plmc](https://github.com/debbiemarkslab/plmc) as the instructi
 ## Preprocessing
 `python scripts/merge_and_cutadapt_all_rounds.py` performs preprocessing based on `config.yaml`.  
 This script performs:  
-1. cutadapt  
+1. cutadapt & fastaptamer_count  
 2. sequence merging  
-3. remove seqs of small count  
+3. remove seqs of small count (optional)  
 Preprocessing part of `config.yaml` should follow this format:   
 ```
 Preprocess_parameters:
@@ -49,8 +49,8 @@ This is an example of preprocessing.
 ```
 python scripts/merge_and_cutadapt_all_rounds.py --config ./example/data/Ishida2020/config.yaml
 ```
-## MSA constraction by jackhmmer
-Set the MSA parameters in config.yaml as follows:
+## MSA constraction
+Set the MSA parameters (jackhmmer) in config.yaml as follows:
 ```
 MSA_parameters:
   all_fasta: ./example/Ishida2020/data/Ishida2020.count.ann.all_selex.fa
@@ -71,19 +71,20 @@ Generate a multiple sequence alignment (MSA) using jackhmmer:
 ```
 python ./scripts/run_jackhmmer.py --config ./example/data/Ishida2020/config.yaml
 ```
-Note: We found these parameters work for most SELEX data. But, if the MSA depth is insufficient, consider relaxing the jackhmmer parameters (iters, F1, F2, F3, T, domT, incT, incdomT). For further details, please refer to the HMMER user guide.
+Note: We found these parameters work for most SELEX data. But, if the MSA depth is insufficient, consider relaxing the jackhmmer parameters (iters, F1, F2, F3, T, domT, incT, incdomT). For further details, please refer to the HMMER3 user guide.
 
 ## Potts model training
 Potts model part of `config.yaml` should follow this format:   
 ```
 Potts_parameters:
   input_fasta: ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.msa
-  sim_threshold: 0.05
+  sim_threshold: 0.05 # theta
   vocab: AUGC.
   iters: 200
   suffix: ""
   print_result: true
 ```
+sim_threshold is re-weighting parameters of each sequence in MSA. If the sequences are highly similar, smaller sim_threshold may be suitable.  
 Train the Potts model by running:
 ```
 python scripts/train_potts.py --config ./example/data/Ishida2020/config.yaml
@@ -91,7 +92,7 @@ python scripts/train_potts.py --config ./example/data/Ishida2020/config.yaml
 ## Folding with coupling scores
 Once you have obtained coupling scores from the Potts model training, predict the 2D structure by using the coupling information. For example: 
 ```
-
+python scrits/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params --min_loop_len 3 --z_threshold 2 --output hoge
 ```
 
 
