@@ -1,5 +1,7 @@
 import argparse
 import json
+import os,sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.structure import fold
 from src.plmc import read_params
 

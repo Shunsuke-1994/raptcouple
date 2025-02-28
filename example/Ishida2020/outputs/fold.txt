@@ -1,0 +1,8 @@
+{
+    "rna": "GUACUACGCCACAACGAACCCCGGCCUGUACCUUUCCGUA",
+    "energy": 9.542264555459994,
+    "secondary_structure": ".(((....((............))...)))..........",
+    "model_params": "example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params",
+    "min_loop_len": 3,
+    "z_threshold": 2
+}
