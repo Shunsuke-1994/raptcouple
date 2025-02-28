@@ -1,4 +1,3 @@
-import subprocess
 import numpy as np
 
 vocab_rna = {'A': 0, 'U': 1, 'G': 2, 'C': 3}

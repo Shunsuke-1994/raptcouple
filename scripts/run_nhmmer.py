@@ -2,9 +2,9 @@
 import sys
 sys.path.append(".")
 from src.hmmer import load_fasta, nhmmer, save_hmm, save_msa
-from src.coupling import plmc
+from plmc import plmc
 import subprocess
-import os
+import matplotlib.pyplot as plt
 
 def fetch_seq_by_id(fasta_file, target_id):
     """
@@ -35,7 +35,6 @@ def main(args):
         )
     
     # if args.plot:
-    import matplotlib.pyplot as plt
     plt.figure()
     plt.hist([hit.score for hit in hits], bins = 50)
     plt.grid(alpha = 0.3)

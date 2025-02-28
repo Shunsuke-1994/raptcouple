@@ -1,20 +1,22 @@
 import random
 import numpy as np
-from src.coupling import read_params
-from src.util import seq2onehot, onehot2seq, int2onehot, onehot2int
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from plmc import read_params
+from util import seq2onehot, onehot2seq, int2onehot, onehot2int
 
 class PottsModel:
-    def __init__(self, J, h, spins, is_dna, is_gapped):
+    def __init__(self, J, h, spins):
         """
-        J: (num_nodes, num_nodes) numpy array of coupling strengths
+        J: (num_nodes, num_nodes, num_state, num_state), assume symmetric and diagonal elements are zero
         h: (num_nodes, num_spin_states) numpy array of external fields
         spins: (num_nodes, num_spin_states) numpy array of spin values
         """
         self.J = J
         self.h = h
         self.spins = spins
-        self.is_dna = is_dna
-        self.is_gapped = is_gapped
+        # self.is_dna = is_dna
+        # self.is_gapped = is_gapped
         self.num_nodes = J.shape[0]
         self.num_states = h.shape[1]
 
@@ -23,26 +25,34 @@ class PottsModel:
         compute energy of the current state (spins)
         """
 
-        return - np.einsum('ij,ij->', self.h, self.spins) - np.einsum('ik,ijkl,jl->', self.spins, self.J, self.spins)
+        return - np.einsum('ij,ij->', self.h, self.spins) - 0.5 * np.einsum('ik,ijkl,jl->', self.spins, self.J, self.spins)
 
     def eval_energy(self, spins):
         """
         compute energy of the given state (spins)
         """
-        return - np.einsum('ij,ij->', self.h, spins) - np.einsum('ik,ijkl,jl->', spins, self.J, spins)
+        return - np.einsum('ij,ij->', self.h, spins) - 0.5 * np.einsum('ik,ijkl,jl->', spins, self.J, spins)
 
-    def compute_delta_energy(self, mutations):
+    def compute_delta_energy(self, mutations, print_debug = False):
         """
         mutations: list of tuple (int_wt, pos, int_mut)
         compute delta energy by mutations
         """
         delta_energy = 0
         for int_wt, pos, int_mut in mutations:
-            delta_energy += self.h[pos, int_wt] - self.h[pos, int_mut]
+            delta_position = self.h[pos, int_wt] - self.h[pos, int_mut]
+            delta_energy += delta_position
+            if print_debug:
+                print(f"delta_position: {delta_position}, pos = {pos}, int_wt = {int_wt}, int_mut = {int_mut}")
             for i in range(self.num_nodes):
                 if i != pos:
                     nuc_i = onehot2int(self.spins[i])
-                    delta_energy += self.J[pos, i, nuc_i, int_wt] - self.J[pos, i, nuc_i, int_mut]
+
+                    # from symmetry of J, we assume i < pos and double the energy(0.5x2)
+                    delta_coupling = self.J[pos, i, int_wt, nuc_i] - self.J[pos, i, int_mut, nuc_i]
+                    delta_energy += delta_coupling
+                    if print_debug:
+                        print(f"delta_coupling: {delta_coupling}, pos = {pos}, i = {i}, nuc_i = {nuc_i}, int_wt = {int_wt}, int_mut = {int_mut}")
         return delta_energy
 
     def sim_anneal(self, T_init, T_end, max_steps, random_init_state = False, random_seed = 42):
@@ -116,14 +126,73 @@ class PottsModel:
         return cls(
             J = params["Jij"],
             h = params["hi"],
-            spins = seq2onehot(params["target_seq"], max_len=len(params["target_seq"]), is_dna=is_dna, is_gapped = is_gapped),
-            is_dna = is_dna, 
-            is_gapped = is_gapped
+            spins = seq2onehot(params["target_seq"], max_len=len(params["target_seq"]), is_dna=is_dna, is_gapped = is_gapped)
             )
 
 
     
 if __name__ == "__main__":
-    model = PottsModel.build_from_file("data/params.txt")
-    model.sim_anneal(1, 0.1, 1000)
-    print(onehot2seq(model.spins))
+    # Original test code
+    n_nodes = 3    # ノード数
+    n_states = 2   # 各ノードの状態数
+
+    # J: (shape: (n_nodes, n_nodes, n_states, n_states))
+    # random J, synmetric, diagonal elements are zero
+    J = np.random.rand(n_nodes, n_nodes, n_states, n_states)
+    for i in range(n_nodes):
+        for j in range(i+1, n_nodes):
+            # J[j, i] = (J[i, j])の転置で対称性を確保
+            J[j, i] = J[i, j].T
+    # 対角成分はゼロに設定
+    for i in range(n_nodes):
+        J[i, i] = np.zeros((n_states, n_states))
+
+    # 外部場 h の作成 (shape: (n_nodes, n_states))
+    h = np.random.rand(n_nodes, n_states)
+    print("J:", J)
+    print("h:", h)
+    # 初期スピン状態の定義 (例: ノードごとに状態 [1, 0] または [0, 1])
+    spins = np.array([
+        [1, 0],
+        [0, 1],
+        [1, 0]
+        ])
+
+    model = PottsModel(J, h, spins)
+    energy_direct = model.compute_energy()
+    energy_eval = model.eval_energy(model.spins)
+    energy_delta_null = model.compute_delta_energy([(0, 0, 0)])
+    print("Test eval_energy:")
+    print("Energy (compute_energy):", energy_direct)
+    print("Energy (eval_energy):", energy_eval)
+    print("Null delta:", energy_delta_null)  # check if the two methods give the same result
+    print("Difference:", energy_eval - energy_direct)  # check if the two methods give the same result
+
+    # --- compute_delta_energy のテスト ---
+    # ここでは、あるノードのスピンを1つ変化させた場合のエネルギー変化が、
+    # eval_energy を用いて直接計算したエネルギー差と一致するかを確認する。
+    print("\nTest compute_delta_energy:")
+    pos = 1  # 例としてノード1を選択
+    current_spin = onehot2int(model.spins[pos])
+    new_spin = 1 - current_spin
+
+    # deltaE by compute_delta_energy 
+    delta_energy_computed = model.compute_delta_energy([(current_spin, pos, new_spin)], print_debug = True)
+
+    new_spins = model.spins.copy()
+    new_spins[pos] = int2onehot(new_spin, n_states)
+    print(model.spins[pos], "->", new_spins[pos], "at node", pos)
+    print(model.spins, "->", new_spins)
+    energy_new = model.eval_energy(new_spins)
+    energy_old = energy_direct
+
+    # deltaE by eval_energy
+    delta_energy_actual = energy_new - energy_old
+    print("Energy before:", energy_old)
+    print("Energy after :", energy_new)
+
+    print("deltaE by compute_delta_energy:\t", delta_energy_computed)
+    print("deltaE by eval_energy:\t\t", delta_energy_actual)
+    print("Difference of compute_delta_energy and eval_energy:", delta_energy_computed - delta_energy_actual)
+
+

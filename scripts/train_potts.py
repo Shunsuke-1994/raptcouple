@@ -1,9 +1,8 @@
 import sys
 import os 
-# sys.path.append("/Users/sumishunsuke/Desktop/RNA/VariationalNeuralPotts")
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(current_dir))
-from src.coupling import plmc
+from plmc import fit
 import subprocess, yaml
 
 def main(args):
@@ -16,7 +15,7 @@ def main(args):
     res_id = subprocess.run(cmd_get_id, shell = True, capture_output =True)
     target_id = res_id.stdout.decode().strip().replace(">", "")
 
-    cmd = plmc(
+    cmd = fit(
             fasta_file=config["input_fasta"],
             target=target_id,
             param_file=param_file,

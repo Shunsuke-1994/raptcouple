@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import sys
 sys.path.append("./")
-from src.coupling import read_params
+from plmc import read_params
 
 
 def plot_from_param_file(

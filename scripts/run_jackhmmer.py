@@ -2,7 +2,6 @@
 import sys
 sys.path.append(".")
 from src.hmmer import load_fasta, jackhmmer, save_hmm, save_msa
-from src.coupling import plmc
 import subprocess
 import os, yaml
 

@@ -1,8 +1,7 @@
 import argparse
-import os
 import json
 from src.structure import fold
-from src.coupling import read_params
+from src.plmc import read_params
 
 def main():
     parser = argparse.ArgumentParser(description="Fold RNA using coupling scores")

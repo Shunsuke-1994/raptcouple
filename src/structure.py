@@ -1,7 +1,7 @@
 # Purpose: RNA secondary structure prediction using Nussinov algorithm
 # TODO: replace with viennaRNA package to use fully customizable scoring table
 import numpy as np
-from src.coupling import detect_coupling
+from src.plmc import detect_coupling
 
 
 def nussinov(rna, min_loop_length=3, score_table=None, sanity_check=True):
