@@ -3,6 +3,12 @@ import numpy as np
 import RNA 
 
 def load_motifs(path_to_supptables):
+    """
+    load PWM of each motif from supplementary tables of Jolma et al. 2020. 
+    https://genome.cshlp.org/content/suppl/2020/07/23/gr.258848.119.DC1/Supplemental_Tables_S1-S8.xlsx
+    Each motif is named as concat of metadata: "gene_barcode_batch_seed_multinominal_cycle_monomer_or_multimer_motif_type_experiment"
+    """
+
     dict_gene2motif_jolma = {}
 
     df_motif_jolma_linear = pd.read_excel(path_to_supptables, sheet_name="S2-PWMs-linear", skiprows=15)
@@ -58,6 +64,24 @@ def load_motifs(path_to_supptables):
 
 
     return dict_gene2motif_jolma
+
+def ambiguous_rna_to_regex(seq):
+    conversion_dict = {
+        'R': '[AG]',
+        'Y': '[UC]',
+        'K': '[GU]',
+        'M': '[AC]',
+        'S': '[GC]',
+        'W': '[AU]',
+        'B': '[GUC]',
+        'D': '[GAU]',
+        'H': '[AUC]',
+        'V': '[GAC]',
+        'N': '[AUGC]'
+    }
+
+    regex_seq = ''.join([conversion_dict[base] if base in conversion_dict else base for base in seq])
+    return regex_seq
 
 
 def calc_entropy_on_PWM(df_pwm, eps= 1e-20):

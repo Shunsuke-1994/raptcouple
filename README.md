@@ -92,7 +92,7 @@ python scripts/train_potts.py --config ./example/Ishida2020/config.yaml
 ## Folding with coupling scores
 Once you have obtained coupling scores from the Potts model training, predict the 2D structure by using the coupling information. For example: 
 ```
-python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params --min_loop_len 3 --z_threshold 2 --output hoge
+python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params --min_loop_len 3 --z_threshold 2 --output ./example/Ishida2020/outputs/fold.yaml
 ```
 
 ## Prediction of mutation effects
