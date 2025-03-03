@@ -104,6 +104,22 @@ python scripts/predict_mutation_effects.py --config ./example/Ishida2020/config.
 `mutations.txt` should list mutations in a standard format (e.g., A15G).
 The script outputs predicted effects for each mutation, facilitating the analysis of mutation impact.
 
+## Sampling and Annealing Scripts
+
+### Gibbs Sampling
+
+Generate sequences via Gibbs sampling and output them in FASTA format along with energy values. Run the following command:
+```
+python scripts/gibbs_sampling.py --config ./example/Ishida2020/config.yaml --output ./example/Ishida2020/outputs/gibbs_sampling_output.fa
+```
+
+### Simulated Annealing
+
+Generate sequences via simulated annealing and output them in FASTA format along with energy values. Run the following command:
+```
+python scripts/simulated_annealing.py --config ./example/Ishida2020/config.yaml --output ./example/Ishida2020/outputs/simulated_annealing_output.fa
+```
+
 # Citation
 If you use this code, please cite the following paper:
 

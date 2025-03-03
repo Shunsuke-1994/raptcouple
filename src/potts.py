@@ -55,7 +55,7 @@ class PottsModel:
                         print(f"delta_coupling: {delta_coupling}, pos = {pos}, i = {i}, nuc_i = {nuc_i}, int_wt = {int_wt}, int_mut = {int_mut}")
         return delta_energy
 
-    def sim_anneal(self, T_init, T_end, max_steps, random_init_state = False, random_seed = 42):
+    def sim_anneal(self, T_init, T_end, max_steps, random_init_state = False, random_seed = 42, print_log = True):
         """
         Simutated annealing by Metroplis-Hastings algorithm.
         T_init: initial temperature
@@ -93,6 +93,10 @@ class PottsModel:
                     current_energy += delta_energy
             # update temperature
             T = T_init * (T_end / T_init) ** (step / max_steps)
+
+            # Log current step details.
+            if print_log:
+                print(f"Step {step+1}/{max_steps}: Temperature = {T:.4f}, Energy = {current_energy:.4f}")
 
         return 
     
