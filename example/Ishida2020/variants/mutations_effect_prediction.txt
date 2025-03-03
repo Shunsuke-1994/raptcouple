@@ -1,0 +1,40 @@
+Using alphabet: ACGT.
+Target sequence: GTACTAC.G..CC...A.C.AA...CGAA.......CCCCGG..CC...T...GTA...CC..TTTCCGTA
+
+Predicting mutation effects:
+Mutation	Energy Change	Prediction
+--------------------------------------------------
+G1A	6.0637	Deleterious
+T2C	-3.4357	Beneficial
+A3G	5.3546	Deleterious
+C4T	-4.0387	Beneficial
+T5G	-0.0382	Beneficial
+A6C	7.4284	Deleterious
+C7G	1.2058	Deleterious
+G9T	5.6524	Deleterious
+C12A	0.5014	Deleterious
+C13G	-1.1972	Beneficial
+A17G	7.1634	Deleterious
+C19A	-5.5994	Beneficial
+A21.	6.6865	Deleterious
+A22C	9.4857	Deleterious
+G27A	6.3204	Deleterious
+A28T	3.2746	Deleterious
+A29C	0.0670	Deleterious
+C38G	2.4930	Deleterious
+C39A	0.2129	Deleterious
+C40T	-5.8631	Beneficial
+G41.	3.6043	Deleterious
+G42A	3.3113	Deleterious
+.44T	5.2514	Deleterious
+C45.	-2.3868	Beneficial
+.49T	5.4629	Deleterious
+T50.	-3.4988	Beneficial
+A56C	3.0262	Deleterious
+.57C	8.5001	Deleterious
+.58G	8.7618	Deleterious
+.59A	3.9344	Deleterious
+C60G	1.6575	Deleterious
+C61T	-4.1626	Beneficial
+.62C	8.7046	Deleterious
+T66G	0.9022	Deleterious
