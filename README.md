@@ -110,14 +110,14 @@ The script outputs predicted effects for each mutation, facilitating the analysi
 
 Generate sequences via Gibbs sampling and output them in FASTA format along with energy values. Run the following command:
 ```
-python scripts/gibbs_sampling.py --config ./example/Ishida2020/config.yaml --output ./example/Ishida2020/outputs/gibbs_sampling_output.fa
+python scripts/gibbs_sampling.py --param_file example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params > ./example/Ishida2020/outputs/gibbs_sampling_output.fa
 ```
 
 ### Simulated Annealing
 
 Generate sequences via simulated annealing and output them in FASTA format along with energy values. Run the following command:
 ```
-python scripts/simulated_annealing.py --config ./example/Ishida2020/config.yaml --output ./example/Ishida2020/outputs/simulated_annealing_output.fa
+python scripts/simulated_annealing.py --param_file ./example/Ishida2020/Ishida2020-6R-1-2626-55264.43.model_params > ./example/Ishida2020/outputs/simulated_annealing_output.fa
 ```
 
 # Citation
