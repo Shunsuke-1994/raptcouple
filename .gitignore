@@ -5,6 +5,7 @@ __pycache__/
 
 # unnecessary
 .DS_Store
+example/Jolma2020
 
 # C extensions
 *.so
