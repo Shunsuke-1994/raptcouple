@@ -75,7 +75,7 @@ def main():
     
     # Predict effect for each mutation
     print("\nPredicting mutation effects:")
-    print("Mutation\tEnergy Change\tPrediction")
+    print("Mutation\tEnergy Change")
     print("-" * 50)
     
     for mut_str in mutations:
@@ -89,16 +89,8 @@ def main():
             
             # Compute energy change
             delta_energy = model.compute_delta_energy([(from_idx, pos, to_idx)])
-            
-            # Determine effect based on energy change
-            if delta_energy < 0:
-                effect = "Beneficial"
-            elif delta_energy > 0:
-                effect = "Deleterious"
-            else:
-                effect = "Neutral"
-            
-            print(f"{mut_str}\t{delta_energy:.4f}\t{effect}")
+                        
+            print(f"{mut_str}\t{delta_energy:.4f}")
             
         except (ValueError, IndexError) as e:
             print(f"Error processing mutation {mut_str}: {e}")
