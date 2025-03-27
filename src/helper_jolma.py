@@ -2,7 +2,33 @@ import pandas as pd
 import numpy as np
 import RNA 
 
-def load_motifs(path_to_supptables):
+def load_metadata(path_to_supptables):
+    df_info = pd.read_excel(path_to_supptables, sheet_name=1, skiprows=15)
+    df_linear = pd.DataFrame(
+        df_info.values[
+            [i for i in range(df_info.shape[0]) if i%5 == 0]
+            ],
+    ).dropna(how="all", axis = 1)
+    df_linear.columns = "Gene Symbol	Barcode	Batch	seed	multinomial	cycle	Mono or multimer	Motif type	Experiment	Number of RBDs in the construct".split("\t") + ["Note"]
+    df_linear = df_linear.fillna({"Number of RBDs in the construct":0}).astype({"Number of RBDs in the construct":int})
+    df_linear["motif_type"] = "linear"
+
+    df_info = pd.read_excel(path_to_supptables, sheet_name=2, skiprows=13)
+    df_struct = pd.DataFrame(
+        df_info.values[
+            [i for i in range(df_info.shape[0]) if i%5 == 0]
+            ],
+    ).dropna(how="all", axis = 1)
+    df_struct.columns = "Gene Symbol	Barcode	Batch	seed	multinomial	cycle	Motif type	Experiment	Number of RBDs in the construct".split("\t") #+ ["None"]
+    df_struct = df_struct.fillna({"Number of RBDs in the construct":0}).astype({"Number of RBDs in the construct":int})
+    df_struct["motif_type"] = "structured"
+
+    df_metadata = pd.concat([df_linear, df_struct]).reset_index(drop = True)
+    df_metadata["seed_regex"] = [ambiguous_rna_to_regex(seed) for seed in df_metadata["seed"]]
+
+    return df_metadata
+
+def load_pwms(path_to_supptables):
     """
     load PWM of each motif from supplementary tables of Jolma et al. 2020. 
     https://genome.cshlp.org/content/suppl/2020/07/23/gr.258848.119.DC1/Supplemental_Tables_S1-S8.xlsx
@@ -83,7 +109,6 @@ def ambiguous_rna_to_regex(seq):
     regex_seq = ''.join([conversion_dict[base] if base in conversion_dict else base for base in seq])
     return regex_seq
 
-
 def calc_entropy_on_PWM(df_pwm, eps= 1e-20):
     """
     df_pwm: (pd.DataFrame) with shape (4, n)
@@ -100,7 +125,6 @@ def trim_pwm_with_entropy(df_pwm, threshold, eps=1e-20):
     entropy = calc_entropy_on_PWM(df_pwm, eps = eps)
     idx_untrimmed = np.where(entropy < threshold)[0]
     return df_pwm[range(idx_untrimmed[0],idx_untrimmed[-1]+1)]
-
 
 def remove_isolated_pairs(structure):
     structure_list = list(structure)
