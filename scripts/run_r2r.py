@@ -24,8 +24,8 @@ def append_custom_weight_to_stofile(sto_input, sto_output, weight):
 
     USE_THIS_WEIGHT_MAP = []
     for id_, w_ in zip(ids, w):
-        USE_THIS_WEIGHT_MAP.append(str(ids))
-        USE_THIS_WEIGHT_MAP.append(str(round(w, 6)))
+        USE_THIS_WEIGHT_MAP.append(str(id_))
+        USE_THIS_WEIGHT_MAP.append(str(round(w_, 6)))
     USE_THIS_WEIGHT_MAP = "#=GF USE_THIS_WEIGHT_MAP " + " ".join(USE_THIS_WEIGHT_MAP) + "\n"
     content[-1] = USE_THIS_WEIGHT_MAP
     content.append("//\n")
@@ -70,12 +70,12 @@ def _break_SScons(sto_weighted):
 
     sscons_refined = ""
     for i in range(leng):
-        # (i,pt[i-1]) is a base pair
-        # if a gap at i or pt[i-1], then replace with "."
-        if (cons[i] == "-") or (cons[pt[i]-1] == "-"):
-            sscons_refined+="."
+        if pt[i] == 0:  # unpaired
+            sscons_refined += sscons[i]
+        elif (cons[i] == "-") or (cons[pt[i]-1] == "-"):
+            sscons_refined += "."
         else:
-            sscons_refined+=sscons[i]
+            sscons_refined += sscons[i]
 
     old_ss = sscons.replace(".", "\.")
     new_ss = sscons_refined.replace(".", "\.")
