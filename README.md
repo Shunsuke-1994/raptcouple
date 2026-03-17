@@ -154,7 +154,7 @@ If you use this code, please cite the following paper:
 
 ```bibtex
 @article{sumi2025raptcouple,
-  title={Learning structure and fitness of RNA discovered by SELEX},
+  title={Discovering structural and functional landscapes of nucleic acids through in vitro evolution},
   author={Sumi, Shunsuke and Kawahara, Daiki and Hada, Yuki and Yoshii, Tatsuyuki and Adachi, Tatsuo and Saito, Hirohide and Hamada, Michiaki},
   journal={submitted},
   volume={XX},
