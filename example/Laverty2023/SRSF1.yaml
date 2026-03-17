@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/SRSF1
+fasta_annotation:
+  SRSF1_TG40NTGTGTT_AAP_A_Cycle1.revcom.fa: SRSF1_TG40NTGTGTT_AAP_A_Cycle1
+  SRSF1_TG40NTGTGTT_AAP_A_Cycle2.revcom.fa: SRSF1_TG40NTGTGTT_AAP_A_Cycle2
+  SRSF1_TG40NTGTGTT_AAP_A_Cycle3.revcom.fa: SRSF1_TG40NTGTGTT_AAP_A_Cycle3
+  SRSF1_TG40NTGTGTT_AAP_A_Cycle4.revcom.fa: SRSF1_TG40NTGTGTT_AAP_A_Cycle4
+remove_lowcount:
+  SRSF1_TG40NTGTGTT_AAP_A_Cycle1.revcom.fa: 1
+  SRSF1_TG40NTGTGTT_AAP_A_Cycle2.revcom.fa: 1

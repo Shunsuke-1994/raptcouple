@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/HNRNPL
+fasta_annotation:
+  HNRNPL_CA40NTGCCGT_AAP_B_Cycle1.revcom.fa: HNRNPL_CA40NTGCCGT_AAP_B_Cycle1
+  HNRNPL_CA40NTGCCGT_AAP_B_Cycle2.revcom.fa: HNRNPL_CA40NTGCCGT_AAP_B_Cycle2
+  HNRNPL_CA40NTGCCGT_AAP_B_Cycle3.revcom.fa: HNRNPL_CA40NTGCCGT_AAP_B_Cycle3
+  HNRNPL_CA40NTGCCGT_AAP_B_Cycle4.revcom.fa: HNRNPL_CA40NTGCCGT_AAP_B_Cycle4
+remove_lowcount:
+  HNRNPL_CA40NTGCCGT_AAP_B_Cycle1.revcom.fa: 1
+  HNRNPL_CA40NTGCCGT_AAP_B_Cycle2.revcom.fa: 1

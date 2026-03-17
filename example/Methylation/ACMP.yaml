@@ -1,0 +1,16 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./where_the_data_is
+fasta_annotation:
+  round1.fa: round1
+  round2.fa: round2
+  round3.fa: round3
+  round4.fa: round4
+  round5.fa: round5
+  round6.fa: round6
+  round7.fa: round7
+remove_lowcount:
+  round1.fa: 1
+  round2.fa: 1
+  round3.fa: 1

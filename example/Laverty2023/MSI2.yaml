@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/MSI2
+fasta_annotation:
+  MSI2_GG40NTAGTTT_AAN_D_Cycle1.revcom.fa: MSI2_GG40NTAGTTT_AAN_D_Cycle1
+  MSI2_GG40NTAGTTT_AAN_D_Cycle2.revcom.fa: MSI2_GG40NTAGTTT_AAN_D_Cycle2
+  MSI2_GG40NTAGTTT_AAN_D_Cycle3.revcom.fa: MSI2_GG40NTAGTTT_AAN_D_Cycle3
+  MSI2_GG40NTAGTTT_AAN_D_Cycle4.revcom.fa: MSI2_GG40NTAGTTT_AAN_D_Cycle4
+remove_lowcount:
+  MSI2_GG40NTAGTTT_AAN_D_Cycle1.revcom.fa: 1
+  MSI2_GG40NTAGTTT_AAN_D_Cycle2.revcom.fa: 1

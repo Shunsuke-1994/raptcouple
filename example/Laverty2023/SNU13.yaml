@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/SNU13
+fasta_annotation:
+  SNU13_TA40NGTTAGC_AAU_C_Cycle1.revcom.fa: SNU13_TA40NGTTAGC_AAU_C_Cycle1
+  SNU13_TA40NGTTAGC_AAU_C_Cycle2.revcom.fa: SNU13_TA40NGTTAGC_AAU_C_Cycle2
+  SNU13_TA40NGTTAGC_AAU_C_Cycle3.revcom.fa: SNU13_TA40NGTTAGC_AAU_C_Cycle3
+  SNU13_TA40NGTTAGC_AAU_C_Cycle4.revcom.fa: SNU13_TA40NGTTAGC_AAU_C_Cycle4
+remove_lowcount:
+  SNU13_TA40NGTTAGC_AAU_C_Cycle1.revcom.fa: 1
+  SNU13_TA40NGTTAGC_AAU_C_Cycle2.revcom.fa: 1

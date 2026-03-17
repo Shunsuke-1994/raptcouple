@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/Ptbp3
+fasta_annotation:
+  Ptbp3_CG40NAATAGC_AAP_B_Cycle1.revcom.fa: Ptbp3_CG40NAATAGC_AAP_B_Cycle1
+  Ptbp3_CG40NAATAGC_AAP_B_Cycle2.revcom.fa: Ptbp3_CG40NAATAGC_AAP_B_Cycle2
+  Ptbp3_CG40NAATAGC_AAP_B_Cycle3.revcom.fa: Ptbp3_CG40NAATAGC_AAP_B_Cycle3
+  Ptbp3_CG40NAATAGC_AAP_B_Cycle4.revcom.fa: Ptbp3_CG40NAATAGC_AAP_B_Cycle4
+remove_lowcount:
+  Ptbp3_CG40NAATAGC_AAP_B_Cycle1.revcom.fa: 1
+  Ptbp3_CG40NAATAGC_AAP_B_Cycle2.revcom.fa: 1

@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/RC3H1
+fasta_annotation:
+  RC3H1_GA40NCTGATT_AAN_D_Cycle1.revcom.fa: RC3H1_GA40NCTGATT_AAN_D_Cycle1
+  RC3H1_GA40NCTGATT_AAN_D_Cycle2.revcom.fa: RC3H1_GA40NCTGATT_AAN_D_Cycle2
+  RC3H1_GA40NCTGATT_AAN_D_Cycle3.revcom.fa: RC3H1_GA40NCTGATT_AAN_D_Cycle3
+  RC3H1_GA40NCTGATT_AAN_D_Cycle4.revcom.fa: RC3H1_GA40NCTGATT_AAN_D_Cycle4
+remove_lowcount:
+  RC3H1_GA40NCTGATT_AAN_D_Cycle1.revcom.fa: 1
+  RC3H1_GA40NCTGATT_AAN_D_Cycle2.revcom.fa: 1

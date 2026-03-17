@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/HNRNPLL
+fasta_annotation:
+  HNRNPLL_CT40NTGTCTG_AAR_B_Cycle1.revcom.fa: HNRNPLL_CT40NTGTCTG_AAR_B_Cycle1
+  HNRNPLL_CT40NTGTCTG_AAR_B_Cycle2.revcom.fa: HNRNPLL_CT40NTGTCTG_AAR_B_Cycle2
+  HNRNPLL_CT40NTGTCTG_AAR_B_Cycle3.revcom.fa: HNRNPLL_CT40NTGTCTG_AAR_B_Cycle3
+  HNRNPLL_CT40NTGTCTG_AAR_B_Cycle4.revcom.fa: HNRNPLL_CT40NTGTCTG_AAR_B_Cycle4
+remove_lowcount:
+  HNRNPLL_CT40NTGTCTG_AAR_B_Cycle1.revcom.fa: 1
+  HNRNPLL_CT40NTGTCTG_AAR_B_Cycle2.revcom.fa: 1

@@ -1,0 +1,8 @@
+N_random: 20
+adapter_3: TTACGTCTTGTTTTTCTCGAGCA
+adapter_5: AATACGACTCACTATAGGGCA
+data_dir: ./where_the_data_is
+fasta_annotation:
+  1st_round.fa: RAPT29-1R
+  2nd_round.fa: RAPT29-2R
+  3rd_round.fa: RAPT29-3R

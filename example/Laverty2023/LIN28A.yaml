@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/LIN28A
+fasta_annotation:
+  LIN28A_GT40NGAAGTA_AAP_D_Cycle1.revcom.fa: LIN28A_GT40NGAAGTA_AAP_D_Cycle1
+  LIN28A_GT40NGAAGTA_AAP_D_Cycle2.revcom.fa: LIN28A_GT40NGAAGTA_AAP_D_Cycle2
+  LIN28A_GT40NGAAGTA_AAP_D_Cycle3.revcom.fa: LIN28A_GT40NGAAGTA_AAP_D_Cycle3
+  LIN28A_GT40NGAAGTA_AAP_D_Cycle4.revcom.fa: LIN28A_GT40NGAAGTA_AAP_D_Cycle4
+remove_lowcount:
+  LIN28A_GT40NGAAGTA_AAP_D_Cycle1.revcom.fa: 1
+  LIN28A_GT40NGAAGTA_AAP_D_Cycle2.revcom.fa: 1

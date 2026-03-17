@@ -1,0 +1,13 @@
+N_random: 30
+adapter_3: CTCGAGAAAAAATACAAAGCGTAA
+adapter_5: TAATACGACTCACTATAGGGA
+data_dir: ./where_the_data_is
+fasta_annotation:
+  2nd_round.fa: 2R
+  3rd_round.fa: 3R
+  4th_round.fa: 4R
+  5th_round.fa: 5R
+  6th_round.fa: 6R
+remove_lowcount:
+  2nd_round.fa.fa: 1
+  3rd_round.fa.fa: 1

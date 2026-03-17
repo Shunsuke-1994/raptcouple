@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/SNRPA
+fasta_annotation:
+  SNRPA_GC40NCTTGTA_AAN_D_Cycle1.revcom.fa: SNRPA_GC40NCTTGTA_AAN_D_Cycle1
+  SNRPA_GC40NCTTGTA_AAN_D_Cycle2.revcom.fa: SNRPA_GC40NCTTGTA_AAN_D_Cycle2
+  SNRPA_GC40NCTTGTA_AAN_D_Cycle3.revcom.fa: SNRPA_GC40NCTTGTA_AAN_D_Cycle3
+  SNRPA_GC40NCTTGTA_AAN_D_Cycle4.revcom.fa: SNRPA_GC40NCTTGTA_AAN_D_Cycle4
+remove_lowcount:
+  SNRPA_GC40NCTTGTA_AAN_D_Cycle1.revcom.fa: 1
+  SNRPA_GC40NCTTGTA_AAN_D_Cycle2.revcom.fa: 1

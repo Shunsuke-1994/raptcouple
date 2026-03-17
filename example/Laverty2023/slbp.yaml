@@ -1,0 +1,12 @@
+N_random: 40
+adapter_3: ''
+adapter_5: ''
+data_dir: ./SELEXdata/Laverty2023/slbp
+fasta_annotation:
+  slbp_AA40NCCGCGT_AAP_A_Cycle1.revcom.fa: slbp_AA40NCCGCGT_AAP_A_Cycle1
+  slbp_AA40NCCGCGT_AAP_A_Cycle2.revcom.fa: slbp_AA40NCCGCGT_AAP_A_Cycle2
+  slbp_AA40NCCGCGT_AAP_A_Cycle3.revcom.fa: slbp_AA40NCCGCGT_AAP_A_Cycle3
+  slbp_AA40NCCGCGT_AAP_A_Cycle4.revcom.fa: slbp_AA40NCCGCGT_AAP_A_Cycle4
+remove_lowcount:
+  slbp_AA40NCCGCGT_AAP_A_Cycle1.revcom.fa: 1
+  slbp_AA40NCCGCGT_AAP_A_Cycle2.revcom.fa: 1
