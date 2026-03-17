@@ -117,8 +117,10 @@ class PottsModel:
                     for k in range(self.num_states)
                     ])
                 probs /= np.sum(probs)
-                # sample a state
-                samples[n, i] = np.random.multinomial(1, probs)
+                # sample a state and update spins for correct Gibbs conditioning
+                sampled = np.random.multinomial(1, probs)
+                self.spins[i] = sampled
+                samples[n, i] = sampled
         return samples
 
     @classmethod

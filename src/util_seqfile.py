@@ -9,20 +9,6 @@ def get_nth_id(fasta, nth = 1):
     nth_id = res_id.stdout.decode().split("\n")[-2].strip().replace(">", "")
     return nth_id
 
-def get_diff_fastas(fasta1, fasta2, print_info = True):
-    """
-    fasta1 - fasta2.
-    check id (except for region)
-    """
-    idx_hits = set([record.id.strip().split("/")[0] for record in SeqIO.parse(fasta2, "fasta")])
-    records_unhits = [record for record in SeqIO.parse(fasta1, "fasta") if not record.id in idx_hits]
-    if print_info:
-        print("sequences to be removed:", len(idx_hits))
-        print("sequences after removing:", len(records_unhits))
-
-    # SeqIO.write(records_unhits, diff_fasta, "fasta")
-    return records_unhits
-
 def fastq2fasta(fastq, is_gzip = False):
     if is_gzip:
         fasta = fastq.replace(".fastq.gz", ".fa")
