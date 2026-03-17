@@ -29,12 +29,12 @@ def nussinov(rna, min_loop_length=3, score_table=None, sanity_check=True):
     
     def traceback(i, j, brackets):
         if i < j:
+            l = j - i
             if dp[i][j] == dp[i + 1][j]:
                 traceback(i + 1, j, brackets)
             elif dp[i][j] == dp[i][j - 1]:
                 traceback(i, j - 1, brackets)
-            elif dp[i][j] == dp[i + 1][j - 1] + score_table[i][j]: # + (1 if valid_pair(rna[i], rna[j]) else 0):
-                # brackets.append((i, j))
+            elif valid_pair(rna[i], rna[j]) and l > min_loop_length and dp[i][j] == dp[i + 1][j - 1] + score_table[i][j]:
                 brackets[i] = "("
                 brackets[j] = ")"
                 traceback(i + 1, j - 1, brackets)

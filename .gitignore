@@ -5,6 +5,7 @@ __pycache__/
 
 # unnecessary
 .DS_Store
+CLAUDE.md
 # example/Jolma2020
 
 # C extensions
