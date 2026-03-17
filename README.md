@@ -29,7 +29,7 @@ example/
 Each example contains a config YAML file and an `outputs/` directory with pre-computed results. Raw SELEX FASTA files are not included; place them under the path specified by `data_dir` in the config file.
 
 ## Data preparation
-FASTA files for SELEX rounds and a config YAML file for RaptCouple are required.
+Raw FASTQ files can be downloaded from [SRA](https://www.ncbi.nlm.nih.gov/sra). After downloading, preprocess them according to the config YAML file to obtain FASTA files for each SELEX round.
 ```
 data_dir/
 ├── 2nd_round.fa
