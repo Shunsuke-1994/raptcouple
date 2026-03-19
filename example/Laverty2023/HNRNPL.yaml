@@ -12,7 +12,7 @@ remove_lowcount:
   HNRNPL_CA40NTGCCGT_AAP_B_Cycle2.revcom.fa: 1
 MSA_parameters:
   all_fasta: ./example/Laverty2023/data/HNRNPL/HNRNPL.count.ann.all_selex.unique.fa
-  target_id: HNRNPL_CA40NTGCCGT_AAP_B_Cycle4-1-9-29.56-0
+  target_id: TARGET_ID # e.g. HNRNPL_CA40NTGCCGT_AAP_B_Cycle4-1-9-29.56-0
   save_dir: ./example/Laverty2023/outputs/HNRNPL
   prefix: ""
   iters: 10
@@ -26,6 +26,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/Laverty2023/outputs/HNRNPL/HNRNPL_CA40NTGCCGT_AAP_B_Cycle4-1-9-29.56-0.msa
+  target_id: HNRNPL_CA40NTGCCGT_AAP_B_Cycle4-1-9-29.56-0
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

@@ -12,7 +12,7 @@ remove_lowcount:
   MSI2_GG40NTAGTTT_AAN_D_Cycle2.revcom.fa: 1
 MSA_parameters:
   all_fasta: ./example/Laverty2023/data/MSI2/MSI2.count.ann.all_selex.unique.fa
-  target_id: MSI2_GG40NTAGTTT_AAN_D_Cycle4-1-29-114.97-0
+  target_id: TARGET_ID # e.g. MSI2_GG40NTAGTTT_AAN_D_Cycle4-1-29-114.97-0
   save_dir: ./example/Laverty2023/outputs/MSI2
   prefix: ""
   iters: 10
@@ -26,6 +26,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/Laverty2023/outputs/MSI2/MSI2_GG40NTAGTTT_AAN_D_Cycle4-1-29-114.97-0.msa
+  target_id: MSI2_GG40NTAGTTT_AAN_D_Cycle4-1-29-114.97-0
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

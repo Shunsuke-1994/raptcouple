@@ -12,7 +12,7 @@ remove_lowcount:
   RC3H1_GA40NCTGATT_AAN_D_Cycle2.revcom.fa: 1
 MSA_parameters:
   all_fasta: ./example/Laverty2023/data/RC3H1/RC3H1.count.ann.all_selex.unique.fa
-  target_id: RC3H1_GA40NCTGATT_AAN_D_Cycle4-1-213-1333.07-0
+  target_id: TARGET_ID # e.g. RC3H1_GA40NCTGATT_AAN_D_Cycle4-1-213-1333.07-0
   save_dir: ./example/Laverty2023/outputs/RC3H1
   prefix: ""
   iters: 10
@@ -26,6 +26,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/Laverty2023/outputs/RC3H1/RC3H1_GA40NCTGATT_AAN_D_Cycle4-1-213-1333.07-0.msa
+  target_id: RC3H1_GA40NCTGATT_AAN_D_Cycle4-1-213-1333.07-0
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

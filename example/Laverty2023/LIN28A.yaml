@@ -12,7 +12,7 @@ remove_lowcount:
   LIN28A_GT40NGAAGTA_AAP_D_Cycle2.revcom.fa: 1
 MSA_parameters:
   all_fasta: ./example/Laverty2023/data/LIN28A/LIN28A.count.ann.all_selex.unique.fa
-  target_id: LIN28A_GT40NGAAGTA_AAP_D_Cycle4-1-57-272.67-0
+  target_id: TARGET_ID # e.g. LIN28A_GT40NGAAGTA_AAP_D_Cycle4-1-57-272.67-0
   save_dir: ./example/Laverty2023/outputs/LIN28A
   prefix: ""
   iters: 10
@@ -26,6 +26,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/Laverty2023/outputs/LIN28A/LIN28A_GT40NGAAGTA_AAP_D_Cycle4-1-57-272.67-0.msa
+  target_id: LIN28A_GT40NGAAGTA_AAP_D_Cycle4-1-57-272.67-0
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

@@ -10,7 +10,7 @@ remove_lowcount:
   ELAVL1_GC40NCACTTC_AAU_C_Cycle2.revcom.fa: 1
 MSA_parameters:
   all_fasta: ./example/Laverty2023/data/ELAVL1/ELAVL1.count.ann.all_selex.unique.fa
-  target_id: ELAVL1_GC40NCACTTC_AAU_C_Cycle4-1-138-742.35-0
+  target_id: TARGET_ID # e.g. ELAVL1_GC40NCACTTC_AAU_C_Cycle4-1-138-742.35-0
   save_dir: ./example/Laverty2023/outputs/ELAVL1
   prefix: ""
   iters: 10
@@ -24,6 +24,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/Laverty2023/outputs/ELAVL1/ELAVL1_GC40NCACTTC_AAU_C_Cycle4-1-138-742.35-0.msa
+  target_id: ELAVL1_GC40NCACTTC_AAU_C_Cycle4-1-138-742.35-0
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

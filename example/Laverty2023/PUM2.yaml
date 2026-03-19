@@ -12,7 +12,7 @@ remove_lowcount:
   PUM2_GA40NTTCCTA_AAN_D_Cycle2.revcom.fa: 1
 MSA_parameters:
   all_fasta: ./example/Laverty2023/data/PUM2/PUM2.count.ann.all_selex.unique.fa
-  target_id: PUM2_GA40NTTCCTA_AAN_D_Cycle4-1-10-37.76-0
+  target_id: TARGET_ID # e.g. PUM2_GA40NTTCCTA_AAN_D_Cycle4-1-10-37.76-0
   save_dir: ./example/Laverty2023/outputs/PUM2
   prefix: ""
   iters: 10
@@ -26,6 +26,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/Laverty2023/outputs/PUM2/PUM2_GA40NTTCCTA_AAN_D_Cycle4-1-10-37.76-0.msa
+  target_id: PUM2_GA40NTTCCTA_AAN_D_Cycle4-1-10-37.76-0
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

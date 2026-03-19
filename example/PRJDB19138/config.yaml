@@ -29,6 +29,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/PRJDB19138/outputs/6R-rank1-jackhmmer-3.msa
+  target_id: 6R-rank1-jackhmmer-3
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

@@ -12,7 +12,7 @@ remove_lowcount:
   SRSF1_TG40NTGTGTT_AAP_A_Cycle2.revcom.fa: 1
 MSA_parameters:
   all_fasta: ./example/Laverty2023/data/SRSF1/SRSF1.count.ann.all_selex.unique.fa
-  target_id: SRSF1_TG40NTGTGTT_AAP_A_Cycle4-1-32-139.65-0
+  target_id: TARGET_ID # e.g. SRSF1_TG40NTGTGTT_AAP_A_Cycle4-1-32-139.65-0
   save_dir: ./example/Laverty2023/outputs/SRSF1
   prefix: ""
   iters: 10
@@ -26,6 +26,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/Laverty2023/outputs/SRSF1/SRSF1_TG40NTGTGTT_AAP_A_Cycle4-1-32-139.65-0.msa
+  target_id: SRSF1_TG40NTGTGTT_AAP_A_Cycle4-1-32-139.65-0
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

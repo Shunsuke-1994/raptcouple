@@ -12,7 +12,7 @@ remove_lowcount:
   Ptbp3_CG40NAATAGC_AAP_B_Cycle2.revcom.fa: 1
 MSA_parameters:
   all_fasta: ./example/Laverty2023/data/Ptbp3/Ptbp3.count.ann.all_selex.unique.fa
-  target_id: Ptbp3_CG40NAATAGC_AAP_B_Cycle4-1-10-59.56-0
+  target_id: TARGET_ID # e.g. Ptbp3_CG40NAATAGC_AAP_B_Cycle4-1-10-59.56-0
   save_dir: ./example/Laverty2023/outputs/Ptbp3
   prefix: ""
   iters: 10
@@ -26,6 +26,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/Laverty2023/outputs/Ptbp3/Ptbp3_CG40NAATAGC_AAP_B_Cycle4-1-10-59.56-0.msa
+  target_id: Ptbp3_CG40NAATAGC_AAP_B_Cycle4-1-10-59.56-0
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200
