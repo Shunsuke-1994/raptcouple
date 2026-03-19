@@ -10,3 +10,24 @@ fasta_annotation:
 remove_lowcount:
   LIN28A_GT40NGAAGTA_AAP_D_Cycle1.revcom.fa: 1
   LIN28A_GT40NGAAGTA_AAP_D_Cycle2.revcom.fa: 1
+MSA_parameters:
+  all_fasta: ./example/Laverty2023/data/LIN28A/LIN28A.count.ann.all_selex.unique.fa
+  target_id: LIN28A_GT40NGAAGTA_AAP_D_Cycle4-1-57-272.67-0
+  save_dir: ./example/Laverty2023/outputs/LIN28A
+  prefix: ""
+  iters: 10
+  F1: 0.02
+  F2: 0.001
+  F3: 0.0001
+  T: 5
+  domT: 5
+  incT: 5
+  incdomT: 5
+  print_result: true
+Potts_parameters:
+  input_fasta: ./example/Laverty2023/outputs/LIN28A/LIN28A_GT40NGAAGTA_AAP_D_Cycle4-1-57-272.67-0.msa
+  sim_threshold: 0.05
+  vocab: AUGC.
+  iters: 200
+  suffix: ""
+  print_result: true

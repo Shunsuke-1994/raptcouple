@@ -10,3 +10,24 @@ fasta_annotation:
 remove_lowcount:
   1st_round.fa: 1
   2nd_round.fa: 1
+MSA_parameters:
+  all_fasta: ./example/PRJDB19139/data/PRJDB19139.count.ann.all_selex.unique.fa
+  target_id: 4R-143118-1-0.99-224802
+  save_dir: ./example/PRJDB19139/outputs
+  prefix: ""
+  iters: 10
+  F1: 0.02
+  F2: 0.001
+  F3: 0.0001
+  T: 5
+  domT: 5
+  incT: 5
+  incdomT: 5
+  print_result: true
+Potts_parameters:
+  input_fasta: ./example/PRJDB19139/outputs/4R-143118-1-0.99-224802.msa
+  sim_threshold: 0.05
+  vocab: AUGC.
+  iters: 200
+  suffix: ""
+  print_result: true

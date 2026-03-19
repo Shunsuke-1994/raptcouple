@@ -70,7 +70,7 @@ Set the MSA parameters (jackhmmer) in config.yaml as follows:
 ```yaml
 MSA_parameters:
   all_fasta: ./example/Ishida2020/data/Ishida2020.count.ann.all_selex.unique.fa
-  target_id: Ishida2020-6R-1-2626-55264.43
+  target_id: Ishida2020-6R-1-2626-55264.43-0
   save_dir: ./example/Ishida2020/outputs
   prefix: ""
   iters: 10
@@ -93,7 +93,7 @@ Note: We found these parameters work for most SELEX data. But, if the MSA depth 
 Set Potts model parameters in config.yaml:
 ```yaml
 Potts_parameters:
-  input_fasta: ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.msa
+  input_fasta: ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.msa
   sim_threshold: 0.05 # theta
   vocab: AUGC.
   iters: 200
@@ -110,24 +110,24 @@ python scripts/train_potts.py --config ./example/Ishida2020/config_6R_rank1.yaml
 The `.model_params` file produced by plmc is a binary format based on the [MATLAB reader in the plmc repository](https://github.com/debbiemarkslab/plmc/blob/master/scripts/read_params.m). A Python reader is provided in `src/plmc.py` as `read_params()`:
 ```python
 from src.plmc import read_params
-params = read_params("example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params")
+params = read_params("example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params")
 # params contains: target_seq, alphabet, hi (fields), Jij (couplings), FN_apc (Frobenius norms), etc.
 ```
 
 ## Folding with coupling scores
 Once you have obtained coupling scores from the Potts model training, predict the 2D structure by using the coupling information. For example:
 ```
-python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params --min_loop_len 3 --z_threshold 2 --output ./example/Ishida2020/outputs/fold.yaml
+python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params --min_loop_len 3 --z_threshold 2 --output ./example/Ishida2020/outputs/fold.yaml
 ```
 
 ## Prediction of mutation effects
 Evaluate the impact of mutations on sequence fitness and structure with:
 ```
-python scripts/predict_mutation_effects.py --param_file example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params --mutations_file ./example/Ishida2020/variants/mutations.txt > ./example/Ishida2020/variants/mutations_effect_prediction.txt
+python scripts/predict_mutation_effects.py --param_file example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params --mutations_file ./example/Ishida2020/variants/mutations.txt > ./example/Ishida2020/variants/mutations_effect_prediction.txt
 ```
 or
 ```
-python scripts/predict_mutation_effects.py --param_file example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params --mutations G1A,A21.
+python scripts/predict_mutation_effects.py --param_file example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params --mutations G1A,A21.
 ```
 
 `mutations.txt` should list mutations in a standard format (e.g., A15G).
@@ -139,14 +139,14 @@ The script outputs predicted effects for each mutation, facilitating the analysi
 
 Generate sequences via Gibbs sampling and output them in FASTA format along with energy values. For example, run the following command:
 ```
-python scripts/gibbs_sampling.py --param_file example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params > ./example/Ishida2020/outputs/gibbs_sampling_output.fa
+python scripts/gibbs_sampling.py --param_file example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params > ./example/Ishida2020/outputs/gibbs_sampling_output.fa
 ```
 
 ### Simulated Annealing
 
 Generate sequences via simulated annealing and output them in FASTA format along with energy values. For example, run the following command:
 ```
-python scripts/simulated_annealing.py --param_file ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params > ./example/Ishida2020/outputs/simulated_annealing_output.fa
+python scripts/simulated_annealing.py --param_file ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params > ./example/Ishida2020/outputs/simulated_annealing_output.fa
 ```
 
 # Citation

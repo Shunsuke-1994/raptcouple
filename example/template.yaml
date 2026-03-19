@@ -1,0 +1,32 @@
+Preprocess_parameters:
+  N_random: 40
+  adapter_3: ""
+  adapter_5: ""
+  data_dir: ./example/<DATASET>/data       # input: raw FASTA (read-only)
+  work_dir: ./example/<DATASET>/work       # output: intermediate files (trim, count, merge)
+  fasta_annotation:
+    <round1>.fa: <annotation1>
+    <round2>.fa: <annotation2>
+  merged_fasta: <DATASET>.count.ann.all_selex.fa
+  remove_lowcount: {}  # optional, e.g. {<round1>.fa: 1}
+MSA_parameters:
+  all_fasta: ./example/<DATASET>/work/<DATASET>.count.ann.all_selex.unique.fa
+  target_id: <target_id>
+  save_dir: ./example/<DATASET>/outputs
+  prefix: ""
+  iters: 10
+  F1: 0.02
+  F2: 0.001
+  F3: 0.0001
+  T: 5
+  domT: 5
+  incT: 5
+  incdomT: 5
+  print_result: true
+Potts_parameters:
+  input_fasta: ./example/<DATASET>/outputs/<target_id>.msa
+  sim_threshold: 0.05
+  vocab: AUGC.
+  iters: 200
+  suffix: ""
+  print_result: true

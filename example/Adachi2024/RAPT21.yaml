@@ -8,3 +8,24 @@ fasta_annotation:
   4th_round.fa: 4R
   5th_round.fa: 5R
   6th_round.fa: 6R
+MSA_parameters:
+  all_fasta: ./example/Adachi2024/data/Adachi2024.count.ann.all_selex.unique.fa
+  target_id: 6R-29-171-1142.85-0
+  save_dir: ./example/Adachi2024/outputs
+  prefix: ""
+  iters: 10
+  F1: 0.02
+  F2: 0.001
+  F3: 0.0001
+  T: 5
+  domT: 5
+  incT: 5
+  incdomT: 5
+  print_result: true
+Potts_parameters:
+  input_fasta: ./example/Adachi2024/outputs/6R-29-171-1142.85-0.msa
+  sim_threshold: 0.05
+  vocab: AUGC.
+  iters: 200
+  suffix: ""
+  print_result: true

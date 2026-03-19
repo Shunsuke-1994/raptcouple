@@ -1,7 +1,7 @@
-import subprocess 
+import subprocess
 import yaml
-import os 
-import pandas as pd 
+import os
+import pandas as pd
 from Bio import SeqIO
 import re
 
@@ -9,6 +9,9 @@ class FASTAProcessor:
     def __init__(self, config_path):
         self.config_path = config_path
         self.config = yaml.safe_load(open(config_path, "r"))["Preprocess_parameters"]
+        self.data_dir = self.config["data_dir"]
+        self.work_dir = self.config.get("work_dir", self.data_dir)
+        os.makedirs(self.work_dir, exist_ok=True)
         self.fasta_count = False
         self.fasta_count_ann = False
         self.fasta_count_ann_merge = False
@@ -20,10 +23,11 @@ class FASTAProcessor:
             adapter_3 = self.config["adapter_3"]
             N_random = self.config["N_random"]
 
-            fasta_trim_tmp_file = os.path.join(self.config["data_dir"], fasta_file.replace(".fa", ".trim.tmp.fa"))
-            fasta_trim_file = os.path.join(self.config["data_dir"], fasta_file.replace(".fa", ".trim.fa"))
-            
-            cmd_5 = f"""cutadapt --discard-untrimmed -g {adapter_5} {os.path.join(self.config["data_dir"], fasta_file)} -o {fasta_trim_tmp_file}"""
+            input_fasta = os.path.join(self.data_dir, fasta_file)
+            fasta_trim_tmp_file = os.path.join(self.work_dir, fasta_file.replace(".fa", ".trim.tmp.fa"))
+            fasta_trim_file = os.path.join(self.work_dir, fasta_file.replace(".fa", ".trim.fa"))
+
+            cmd_5 = f"""cutadapt --discard-untrimmed -g {adapter_5} {input_fasta} -o {fasta_trim_tmp_file}"""
             res = subprocess.run(cmd_5, shell=True, capture_output=True)
             print(res.stdout.decode("utf-8"))
             print(res.stderr.decode("utf-8"))
@@ -34,11 +38,11 @@ class FASTAProcessor:
             print(res.stdout.decode("utf-8"))
             print(res.stderr.decode("utf-8"))
 
-        return 
+        return
 
     def _remove_duplicate_of_trimfasta_by_fastaptamer(self, fasta_file):
-        fasta_trim_file = fasta_file.replace(".fa", ".trim.fa")
-        fasta_trim_count_file = fasta_file.replace(".fa", ".trim.count.fa")
+        fasta_trim_file = os.path.join(self.work_dir, fasta_file.replace(".fa", ".trim.fa"))
+        fasta_trim_count_file = os.path.join(self.work_dir, fasta_file.replace(".fa", ".trim.count.fa"))
 
         cmd = f"""fastaptamer_count -i {fasta_trim_file} -o {fasta_trim_count_file}"""
         res = subprocess.run(cmd, shell=True, capture_output=True)
@@ -47,40 +51,38 @@ class FASTAProcessor:
         print(res.stderr.decode("utf-8"))
 
         return fasta_trim_count_file
-    
+
     def remove_duplicate_of_all_trimfasta(self):
         print("Removing duplicates in a fasta")
         for fasta_file in self.config["fasta_annotation"].keys():
             print(f"Removing duplicates in {fasta_file}")
-            self._remove_duplicate_of_trimfasta_by_fastaptamer(os.path.join(self.config["data_dir"], fasta_file))
+            self._remove_duplicate_of_trimfasta_by_fastaptamer(fasta_file)
         self.fasta_count = True
         return
 
     def _add_info_to_trimcount_fasta_by_config(self, ann, trimcountfasta_file):
         cmd = f"""sed 's/>/>{ann}-/g' {trimcountfasta_file} > {trimcountfasta_file.replace(".fa", ".ann.fa")}"""
         res = subprocess.run(cmd, shell=True, capture_output=True)
-        # print(res.stdout.decode("utf-8"))
-        # print(res.stderr.decode("utf-8"))
         return res
-    
+
     def add_info_to_all_trimcount_fasta(self):
         assert self.fasta_count, "Run remove_duplicate_of_all_fasta"
         for fasta_file in self.config["fasta_annotation"].keys():
             self._add_info_to_trimcount_fasta_by_config(
                 ann = self.config["fasta_annotation"][fasta_file],
-                trimcountfasta_file = os.path.join(self.config["data_dir"], fasta_file.replace(".fa", ".trim.count.fa"))
+                trimcountfasta_file = os.path.join(self.work_dir, fasta_file.replace(".fa", ".trim.count.fa"))
                 )
         self.fasta_count_ann = True
-        return 
+        return
 
     def merge_all_fasta(self):
         assert self.fasta_count_ann, "Run add_info_to_all_counted_fasta"
-        # self.fasta_merged_file = fasta_merged_file
+        self.fasta_merged_file = os.path.join(self.work_dir, self.config["merged_fasta"])
         print(self.fasta_merged_file)
         with open(self.fasta_merged_file, 'w') as fasta_trim_count_ann_all:
             for fasta_file in self.config["fasta_annotation"].keys():
                 fasta_trim_count_ann_file = fasta_file.replace(".fa", ".trim.count.ann.fa")
-                with open(os.path.join(self.config["data_dir"], fasta_trim_count_ann_file), "r") as fasta_trim_count_ann:
+                with open(os.path.join(self.work_dir, fasta_trim_count_ann_file), "r") as fasta_trim_count_ann:
                     fasta_trim_count_ann_all.write(fasta_trim_count_ann.read())
         self.fasta_count_ann_merge = True
         return self.fasta_merged_file
@@ -88,11 +90,11 @@ class FASTAProcessor:
     # optional
     def remove_count1_from_trimcountann_fasta(self):
         if not "remove_lowcount" in self.config:
-            return 
-    
-        else: 
+            return
+
+        else:
             records = SeqIO.parse(self.fasta_merged_file, "fasta")
-            
+
             for fasta_file, annot in self.config["fasta_annotation"].items():
                 if fasta_file in self.config["remove_lowcount"].keys():
                     count = self.config["remove_lowcount"][fasta_file]
@@ -111,7 +113,7 @@ class FASTAProcessor:
     # def reuniquenize(self):
     #     assert self.fasta_count_ann_merge, "Run merge_all_fasta"
 
-    #     records = SeqIO.parse(self.fasta_merged_file, "fasta")    
+    #     records = SeqIO.parse(self.fasta_merged_file, "fasta")
     #     records_dicts = {}
     #     for record in records:
     #         records_dicts[str(record.seq)] = record.id
@@ -129,8 +131,8 @@ class FASTAProcessor:
     #             f.write(f">{row['id']}\n{row['seq']}\n")
     #     self.fasta_count_ann_merge_reunique = True
 
-    #     return 
-    
+    #     return
+
     def reuniquenize(self):
         """
         retain duplicated ids.
@@ -138,7 +140,7 @@ class FASTAProcessor:
         """
         assert self.fasta_count_ann_merge, "Run merge_all_fasta"
 
-        records = SeqIO.parse(self.fasta_merged_file, "fasta")    
+        records = SeqIO.parse(self.fasta_merged_file, "fasta")
         records_dicts = {}
         for record in records:
             if str(record.seq) in records_dicts:
@@ -162,9 +164,9 @@ class FASTAProcessor:
                 f.write(f">{row['merged_id_']}\n{row['seq']}\n")
         self.fasta_count_ann_merge_reunique = True
 
-        return 
+        return
 
-    
+
     def print_proc_info(self):
         print(f"Config: {self.config_path}")
         print(f"Final trim/count/ann/merged/reunique fasta: {self.fasta_count_ann_merge_reunique}")
@@ -185,4 +187,3 @@ if __name__ == "__main__":
     proc.remove_count1_from_trimcountann_fasta()
     proc.reuniquenize()
     proc.print_proc_info()
-    

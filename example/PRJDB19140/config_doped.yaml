@@ -6,3 +6,9 @@ fasta_annotation:
   1st_round.fa: RAPT28-1R
   2nd_round.fa: RAPT28-2R
   3rd_round.fa: RAPT28-3R
+MSA_parameters:
+  # doped SELEX: use PRJDB19139 (parent) HMM for alignment
+  hmm_file: ./example/PRJDB19139/outputs/4R-143118-1-0.99-224802.hmm
+Potts_parameters:
+  # doped SELEX: use PRJDB19139 (parent) Potts model for energy evaluation
+  param_file: ./example/PRJDB19139/outputs/4R-143118-1-0.99-224802.model_params

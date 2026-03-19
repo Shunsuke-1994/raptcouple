@@ -14,3 +14,24 @@ remove_lowcount:
   round1.fa: 1
   round2.fa: 1
   round3.fa: 1
+MSA_parameters:
+  all_fasta: ./example/Methylation/data/Methylation.count.ann.all_selex.unique.fa
+  target_id: round3-793-2-0.99_round4-20-217-115.45_round5-527-320-169.44_round6-2536-49-33.69_round7-9762-5-2.38-0
+  save_dir: ./example/Methylation/outputs
+  prefix: ""
+  iters: 10
+  F1: 0.02
+  F2: 0.001
+  F3: 0.0001
+  T: 5
+  domT: 5
+  incT: 5
+  incdomT: 5
+  print_result: true
+Potts_parameters:
+  input_fasta: ./example/Methylation/outputs/round3-793-2-0.99_round4-20-217-115.45_round5-527-320-169.44_round6-2536-49-33.69_round7-9762-5-2.38-0.msa
+  sim_threshold: 0.05
+  vocab: AUGC.
+  iters: 200
+  suffix: ""
+  print_result: true

@@ -1,13 +1,36 @@
-N_random: 30
-adapter_3: CTCGAGAAAAAATACAAAGCGTAA
-adapter_5: TAATACGACTCACTATAGGGA
-data_dir: ./where_the_data_is
-fasta_annotation:
-  2nd_round.fa: 2R
-  3rd_round.fa: 3R
-  4th_round.fa: 4R
-  5th_round.fa: 5R
-  6th_round.fa: 6R
-remove_lowcount:
-  2nd_round.fa.fa: 1
-  3rd_round.fa.fa: 1
+Preprocess_parameters:
+  N_random: 30
+  adapter_3: CTCGAGAAAAAATACAAAGCGTAA
+  adapter_5: TAATACGACTCACTATAGGGA
+  data_dir: ./example/PRJDB19138/data
+  fasta_annotation:
+    220204FGi6-2R_S1_L001_R1_001.fa: 2R
+    220204FGi6-3R_S2_L001_R1_001.fa: 3R
+    220204FGi6-4R_S3_L001_R1_001.fa: 4R
+    220204FGi6-5R_S4_L001_R1_001.fa: 5R
+    220204FGi6-6R_S5_L001_R1_001.fa: 6R
+  merged_fasta: PRJDB19138.count.ann.all_selex.fa
+  remove_lowcount:
+    220204FGi6-2R_S1_L001_R1_001.fa: 1
+    220204FGi6-3R_S2_L001_R1_001.fa: 1
+MSA_parameters:
+  all_fasta: ./example/PRJDB19138/data/all.L30.count.ann.unique.rm23Rcount1.fasta
+  target_id: 6R-rank1
+  save_dir: ./example/PRJDB19138/outputs
+  prefix: ""
+  iters: 3
+  F1: 0.02
+  F2: 0.001
+  F3: 0.0001
+  T: 15
+  domT: 15
+  incT: 15
+  incdomT: 15
+  print_result: true
+Potts_parameters:
+  input_fasta: ./example/PRJDB19138/outputs/6R-rank1-jackhmmer-3.msa
+  sim_threshold: 0.05
+  vocab: AUGC.
+  iters: 200
+  suffix: ""
+  print_result: true

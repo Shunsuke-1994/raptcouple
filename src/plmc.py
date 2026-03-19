@@ -11,7 +11,7 @@ import seaborn as sns
 PATH_TO_PLMC = "~/desktop/RNA/plmc/bin/plmc" # "path/to/plmc"
 
 
-def fit(fasta_file, target, param_file, coupling_file, vocab, threshold = 0.01, print_result = True):
+def fit(fasta_file, target, param_file, coupling_file, vocab, threshold = 0.05, print_result = True):
     alignments = list(SeqIO.parse(fasta_file, "fasta"))
     le = round(0.2*(len(alignments[0])-1), 1)
     cmd = f"""{PATH_TO_PLMC} -o {param_file} -c {coupling_file} -a {vocab} -f {target} -le {str(le)} -lh 0.01 -m 200 -t {threshold} {fasta_file}"""
