@@ -4,9 +4,9 @@ adapter_5: AATACGACTCACTATAGGGCA
 data_dir: ./where_the_data_is
 fasta_annotation:
   1st_round.fa: RAPT27-1R
-  2nd_round.fa.fa: RAPT27-2R
-  3rd_round.fa.fa: RAPT27-3R
-  4th_round.fa.fa: RAPT27-4R
+  2nd_round.fa: RAPT27-2R
+  3rd_round.fa: RAPT27-3R
+  4th_round.fa: RAPT27-4R
 remove_lowcount:
   1st_round.fa: 1
   2nd_round.fa: 1

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # you need to specify the path to plmc
-PATH_TO_PLMC = "~/desktop/RNA/plmc/bin/plmc" # "path/to/plmc"
+PATH_TO_PLMC = "/path/to/plmc"
 
 
 def fit(fasta_file, target, param_file, coupling_file, vocab, threshold = 0.05, print_result = True):
