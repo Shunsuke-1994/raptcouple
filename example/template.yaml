@@ -25,6 +25,7 @@ MSA_parameters:
   print_result: true
 Potts_parameters:
   input_fasta: ./example/<DATASET>/outputs/<target_id>.msa
+  target_id: <target_id>
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200
