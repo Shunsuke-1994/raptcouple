@@ -72,7 +72,8 @@ def save_msa(iteration_res, msa_file, file_format = "fasta"):
         with open(msa_file, "w") as f:
             textmsa = iteration_res.hits.to_msa(easel.Alphabet.rna())
             for name, aligned in zip(textmsa.names, textmsa.alignment):
-                name_tmp = name.decode() 
+                # pyhmmer returns bytes in some versions and str in others
+                name_tmp = name.decode() if isinstance(name, bytes) else name
                 f.write(">" + name_tmp + "\n")
                 f.write(aligned.replace("-", ".") + "\n")
 
@@ -82,7 +83,8 @@ def save_msa(iteration_res, msa_file, file_format = "fasta"):
         with open(fasta_file, "w") as f:
             textmsa = iteration_res.hits.to_msa(easel.Alphabet.rna())
             for name, aligned in zip(textmsa.names, textmsa.alignment):
-                name_tmp = name.decode() 
+                # pyhmmer returns bytes in some versions and str in others
+                name_tmp = name.decode() if isinstance(name, bytes) else name
                 f.write(">" + name_tmp + "\n")
                 f.write(aligned.replace("-", ".") + "\n")
 

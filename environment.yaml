@@ -27,6 +27,8 @@ dependencies:
 - pyhmmer>=0.10
 - fastaptamer
 - viennarna>=2.6
+- meme>=5.5
+- vsearch>=2.29
 - sra-tools>=3.2
 - xopen
 - isa-l>=2.31

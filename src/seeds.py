@@ -135,32 +135,40 @@ def read_streme_motifs(streme_txt, n_motifs=None):
 
 
 def read_streme_sites(sites_tsv, input_fasta, motif_ids):
-    """{motif id: {sequences of the STREME input that carry it}}."""
+    """{motif id: {sequences of the STREME input that carry the motif}}.
+
+    ``sites.tsv`` identifies a site by the header of the sequence STREME was run on, so
+    the headers are resolved against ``input_fasta``, the FASTA given to STREME.
+    """
     sequences = dict(load_pool(input_fasta))
     wanted = set(motif_ids)
     sites = defaultdict(set)
     with open(sites_tsv) as handle:
-        next(handle)
+        header = next(handle).rstrip("\n").split("\t")
+        motif_column = header.index("motif_ID") if "motif_ID" in header else 0
+        id_column = header.index("seq_ID") if "seq_ID" in header else 2
         for line in handle:
             fields = line.rstrip("\n").split("\t")
-            if len(fields) > 2 and fields[0] in wanted and fields[2] in sequences:
-                sites[fields[0]].add(sequences[fields[2]])
+            if len(fields) <= max(motif_column, id_column):
+                continue
+            if fields[motif_column] in wanted and fields[id_column] in sequences:
+                sites[fields[motif_column]].add(sequences[fields[id_column]])
     return sites
 
 
-def motif_seeds(pool_fasta, streme_dir, n_motifs=10):
+def motif_seeds(pool_fasta, streme_dir, n_motifs=10, streme_input=None):
     """Seeds from the reads carrying the top STREME motifs.
 
-    STREME runs on a subset of the pool (its input FASTA), so each motif is mapped back to
-    the whole pool: among the reads carrying it, the seed is the one from the latest round,
-    then the best rank, then the highest read count. The choice does not depend on file order.
+    ``streme_input`` is the FASTA STREME was run on, which may be a subset of the pool
+    (for example its most abundant reads); it defaults to ``pool_fasta``. Each motif is
+    mapped back to the whole pool, and among the reads carrying it the seed is the one
+    from the latest round, then the best rank, then the highest read count, so the choice
+    does not depend on file order.
     """
     import os
     streme_txt = os.path.join(streme_dir, "streme.txt")
     sites_tsv = os.path.join(streme_dir, "sites.tsv")
-    input_fasta = os.path.join(streme_dir, "sequences.tsv")
-    if not os.path.exists(input_fasta):                    # STREME's input, saved beside its output
-        input_fasta = os.path.join(os.path.dirname(streme_dir), "top.fa")
+    input_fasta = streme_input or pool_fasta
 
     motifs = read_streme_motifs(streme_txt, n_motifs)
     sites = read_streme_sites(sites_tsv, input_fasta, [name for name, _ in motifs])

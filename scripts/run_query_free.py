@@ -120,7 +120,8 @@ def main():
         if not os.path.exists(os.path.join(streme_dir, "streme.txt")):
             print(f"running STREME on {pool_fasta} ...", flush=True)
             seeds.run_streme(pool_fasta, streme_dir, n_motifs=n_seeds)
-        found = seeds.motif_seeds(pool_fasta, streme_dir, n_motifs=n_seeds)
+        found = seeds.motif_seeds(pool_fasta, streme_dir, n_motifs=n_seeds,
+                                  streme_input=options.get("streme_input"))
     found = seeds.unique(found)
     print(f"{len(found)} seed(s) from the {args.arm} arm", flush=True)
 
