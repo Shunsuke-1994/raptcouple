@@ -106,6 +106,35 @@ Train the Potts model by running:
 python scripts/train_potts.py --config ./example/Ishida2020/config_6R_rank1.yaml
 ```
 
+## Query-free analysis (no query sequence)
+
+The steps above start from a query you supply. RaptCouple can also generate the queries from
+the pool itself, so no prior motif knowledge is needed. Seeds come from one of two
+independent routes — enriched motifs found by [STREME](https://meme-suite.org/) or abundant
+clusters found by [vsearch](https://github.com/torognes/vsearch) — and each seed then runs
+through the same jackhmmer, Potts and folding steps:
+
+```
+python scripts/run_query_free.py --config ./example/Ishida2020/config_6R_rank1.yaml --arm streme  --out ./example/Ishida2020/query_free_streme
+python scripts/run_query_free.py --config ./example/Ishida2020/config_6R_rank1.yaml --arm vsearch --out ./example/Ishida2020/query_free_vsearch
+```
+
+`results.tsv` lists, per seed, the motif candidates extracted from the trained model and the
+structure folded from its couplings. Options go in the config under `Query_free_parameters`
+(number of seeds, clustering identity, the round to count reads from, candidates kept per
+seed); see the docstring of `scripts/run_query_free.py`.
+
+The candidate extraction is also available on its own, for models you already trained:
+
+```python
+from src.plmc import read_params
+from src import motif
+
+params = read_params("example/Jolma2020/outputs/117_RBM4_TTCGGA40NCGC_AAG_4-997-17-72.02-44.model_params")
+for candidate in motif.candidates(params):
+    print(candidate["consensus"], candidate["core_kmer"])
+```
+
 ## Model parameters file format
 The `.model_params` file produced by plmc is a binary format based on the [MATLAB reader in the plmc repository](https://github.com/debbiemarkslab/plmc/blob/master/scripts/read_params.m). A Python reader is provided in `src/plmc.py` as `read_params()`:
 ```python
@@ -152,6 +181,19 @@ Generate sequences via simulated annealing and output them in FASTA format along
 ```
 python scripts/simulated_annealing.py --param_file ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params > ./example/Ishida2020/outputs/simulated_annealing_output.fa
 ```
+
+# Worked examples
+
+`example/reproduce/` holds short scripts that reproduce results from the paper using only
+files in this repository, and that show the typical calls for your own analyses:
+
+```bash
+python example/reproduce/01_structure_from_couplings.py   # folding a model
+python example/reproduce/02_deletion_effects.py           # scoring mutations
+python example/reproduce/03_motif_candidates.py           # extracting motif candidates
+```
+
+See `example/reproduce/README.md`.
 
 # Citation
 If you use this code, please cite the following paper:
