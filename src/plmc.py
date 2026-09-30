@@ -1,6 +1,8 @@
 # wrapper of plmc
 import pandas as pd
 import subprocess
+import os
+import shlex
 import numpy as np
 from Bio import SeqIO, AlignIO
 from collections import Counter
@@ -13,9 +15,14 @@ PATH_TO_PLMC = "/path/to/plmc"
 
 def fit(fasta_file, target, param_file, coupling_file, vocab, threshold = 0.05, print_result = True):
     alignments = list(SeqIO.parse(fasta_file, "fasta"))
+    if not alignments:
+        raise ValueError(f"Cannot fit PLMC to an empty alignment: {fasta_file}")
     le = round(0.2*(len(alignments[0])-1), 1)
-    cmd = f"""{PATH_TO_PLMC} -o {param_file} -c {coupling_file} -a {vocab} -f {target} -le {str(le)} -lh 0.01 -m 200 -t {threshold} {fasta_file}"""
-    res = subprocess.run(cmd, shell = True, capture_output = True)
+    args = [os.path.expanduser(PATH_TO_PLMC), "-o", str(param_file), "-c", str(coupling_file),
+            "-a", vocab, "-f", target, "-le", str(le), "-lh", "0.01", "-m", "200",
+            "-t", str(threshold), str(fasta_file)]
+    cmd = shlex.join(args)
+    res = subprocess.run(args, capture_output=True, check=True)
     if print_result:
         print(res.stdout.decode("utf-8"))
         print(res.stderr.decode("utf-8"))

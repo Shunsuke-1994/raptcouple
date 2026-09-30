@@ -38,6 +38,16 @@ class PottsModel:
         mutations: list of tuple (int_wt, pos, int_mut)
         compute delta energy by mutations
         """
+        mutations = list(mutations)
+        states = np.argmax(self.spins, axis=1).copy()
+        positions = [pos for _, pos, _ in mutations]
+        if len(set(positions)) != len(positions):
+            raise ValueError("Specify each mutated position only once")
+        for int_wt, pos, int_mut in mutations:
+            if not 0 <= pos < self.num_nodes:
+                raise ValueError(f"Mutation position out of range: {pos}")
+            if not 0 <= int_mut < self.num_states or int_wt != states[pos]:
+                raise ValueError(f"Invalid mutation or wild-type state at position {pos}")
         delta_energy = 0
         for int_wt, pos, int_mut in mutations:
             delta_position = self.h[pos, int_wt] - self.h[pos, int_mut]
@@ -46,13 +56,17 @@ class PottsModel:
                 print(f"delta_position: {delta_position}, pos = {pos}, int_wt = {int_wt}, int_mut = {int_mut}")
             for i in range(self.num_nodes):
                 if i != pos:
-                    nuc_i = onehot2int(self.spins[i])
+                    # Include earlier mutations when evaluating this change.
+                    # Summing single-mutant effects against the original state
+                    # omits epistasis between mutated positions.
+                    nuc_i = states[i]
 
                     # from symmetry of J, we assume i < pos and double the energy(0.5x2)
                     delta_coupling = self.J[pos, i, int_wt, nuc_i] - self.J[pos, i, int_mut, nuc_i]
                     delta_energy += delta_coupling
                     if print_debug:
                         print(f"delta_coupling: {delta_coupling}, pos = {pos}, i = {i}, nuc_i = {nuc_i}, int_wt = {int_wt}, int_mut = {int_mut}")
+            states[pos] = int_mut
         return delta_energy
 
     def sim_anneal(self, T_init, T_end, max_steps, random_init_state = False, random_seed = 42, print_log = True):

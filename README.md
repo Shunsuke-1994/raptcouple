@@ -115,9 +115,13 @@ params = read_params("example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0
 ```
 
 ## Folding with coupling scores
-Once you have obtained coupling scores from the Potts model training, predict the 2D structure by using the coupling information. For example:
+Once you have obtained coupling scores from the Potts model training, predict the 2D structure by using the coupling information. Base pairs are placed only where the APC-corrected coupling z-score is at least `--z_threshold` (default 3), and the default **noLP (no-lonely-pair) Nussinov** algorithm requires every retained pair to be stacked on a neighbouring pair, so isolated base pairs are not reported. For example:
 ```
-python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params --min_loop_len 3 --z_threshold 2 --output ./example/Ishida2020/outputs/fold.json
+python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params --min_loop_len 3 --z_threshold 3 --output ./example/Ishida2020/outputs/fold.json
+```
+To allow isolated base pairs (the behaviour of earlier versions), add `--no-nolp`:
+```
+python scripts/fold_by_coupling.py --coupling ./example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43-0.model_params --no-nolp --min_loop_len 3 --z_threshold 2 --output ./example/Ishida2020/outputs/fold.json
 ```
 
 ## Prediction of mutation effects
@@ -163,3 +167,7 @@ If you use this code, please cite the following paper:
   year={2025},
   note={Correspondence should be addressed to: mhamada@waseda.jp, hirosaito@iqb.u-tokyo.ac.jp}
 }
+
+# License
+
+Released under the MIT License; see [LICENSE](LICENSE).

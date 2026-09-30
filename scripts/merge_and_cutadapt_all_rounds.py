@@ -3,7 +3,6 @@ import yaml
 import os
 import pandas as pd
 from Bio import SeqIO
-import re
 
 class FASTAProcessor:
     def __init__(self, config_path):
@@ -92,23 +91,35 @@ class FASTAProcessor:
         if not "remove_lowcount" in self.config:
             return
 
-        else:
-            records = SeqIO.parse(self.fasta_merged_file, "fasta")
+        assert self.fasta_count_ann_merge, "Run merge_all_fasta first"
+        thresholds = {
+            str(self.config["fasta_annotation"][name]): int(count)
+            for name, count in self.config["remove_lowcount"].items()
+        }
+        if any(count < 0 for count in thresholds.values()):
+            raise ValueError("Low-count thresholds must be non-negative")
 
-            for fasta_file, annot in self.config["fasta_annotation"].items():
-                if fasta_file in self.config["remove_lowcount"].keys():
-                    count = self.config["remove_lowcount"][fasta_file]
-                    rm_count_range = "|".join([str(c) for c in range(1, count+1)])
-                    records = [record for record in records if re.search(f"{annot}-.*-[{rm_count_range}]-.*", record.id) == None]
-                    print(len(records))
+        def keep(record):
+            # Before reuniquenize(), IDs are annotation-rank-count-RPM.
+            # Split from the right so hyphens in annotations remain literal.
+            fields = record.id.rsplit("-", 3)
+            if len(fields) != 4:
+                raise ValueError(f"Invalid annotated FASTAptamer ID: {record.id}")
+            annotation, rank, count, rpm = fields
+            try:
+                int(rank)
+                count = int(count)
+                float(rpm)
+            except ValueError as error:
+                raise ValueError(f"Invalid annotated FASTAptamer ID: {record.id}") from error
+            return not (1 <= count <= thresholds.get(annotation, 0))
 
-            SeqIO.write(
-                records,
-                os.path.join(self.fasta_merged_file.replace(".fa", ".rmlow.fa")),
-                "fasta"
-                )
-            self.fasta_merged_file = self.fasta_merged_file.replace(".fa", ".rmlow.fa")
-            return
+        output = os.path.splitext(self.fasta_merged_file)[0] + ".rmlow.fa"
+        with open(self.fasta_merged_file) as source, open(output, "w") as target:
+            records = (r for r in SeqIO.parse(source, "fasta") if keep(r))
+            SeqIO.write(records, target, "fasta")
+        self.fasta_merged_file = output
+        return
 
     # def reuniquenize(self):
     #     assert self.fasta_count_ann_merge, "Run merge_all_fasta"

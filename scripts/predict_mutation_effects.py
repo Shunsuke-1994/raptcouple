@@ -3,6 +3,7 @@ import numpy as np
 import sys, os
 sys.path.append("./")
 from src.potts import PottsModel
+from src.plmc import read_params
 from src.util import onehot2seq, seq2onehot
 
 def parse_args():
@@ -13,39 +14,36 @@ def parse_args():
     return parser.parse_args()
 
 def parse_mutation(mutation_str, alphabet):
-    """Parse a mutation string like 'A15G'"""
-    from_nuc = mutation_str[0]
-    to_nuc = mutation_str[-1]
+    """Parse a mutation string like 'A15G' or 'A21.' into (from_idx, pos, to_idx).
+
+    Indices follow the state order of the model (``alphabet``). T is accepted
+    for U and U for T, so mutations can be written in either nucleic acid.
+    """
+    def state(nuc):
+        if nuc not in alphabet:
+            if nuc == "T" and "U" in alphabet:
+                nuc = "U"
+            elif nuc == "U" and "T" in alphabet:
+                nuc = "T"
+            else:
+                raise ValueError(f"Nucleotide {nuc!r} in mutation {mutation_str} not in alphabet {alphabet}")
+        return alphabet.index(nuc)
+
+    from_idx = state(mutation_str[0])
+    to_idx = state(mutation_str[-1])
     pos = int(mutation_str[1:-1]) - 1  # Convert to 0-indexed
-    
-    # Validate nucleotides are in the alphabet
-    if from_nuc not in alphabet or to_nuc not in alphabet:
-        raise ValueError(f"Nucleotides in mutation {mutation_str} not found in alphabet {alphabet}")
-    
-    # Get the indices in the alphabet
-    from_idx = alphabet.index(from_nuc)
-    to_idx = alphabet.index(to_nuc)
-    
     return from_idx, pos, to_idx
 
-def get_alphabet_from_model(model):
-    """Determine the alphabet based on the model parameters"""
-    if model.num_states == 4:
-        # RNA or DNA
-        target_seq = onehot2seq(model.spins)
-        if 'T' in target_seq:
-            return "ACGT"
-        else:
-            return "ACGU"
-    elif model.num_states == 5:
-        # RNA or DNA with gaps
-        target_seq = onehot2seq(model.spins)
-        if 'T' in target_seq:
-            return "ACGT."
-        else:
-            return "ACGU."
-    else:
-        raise ValueError(f"Unsupported number of states: {model.num_states}")
+def get_alphabet(params):
+    """State order of the Potts model as stored by plmc (e.g. 'AUGC.').
+
+    The model's states are ordered as in this string, so mutation indices must
+    be taken from it rather than from an alphabetical order.
+    """
+    alphabet = params["alphabet"]
+    if len(alphabet) not in (4, 5):
+        raise ValueError(f"Unsupported alphabet: {alphabet}")
+    return alphabet
 
 def main():
     args = parse_args()
@@ -53,12 +51,12 @@ def main():
     # Build model from parameter file
     model = PottsModel.build_from_file(args.param_file)
     
-    # Determine alphabet
-    alphabet = get_alphabet_from_model(model)
+    # Determine alphabet (state order of the model)
+    alphabet = get_alphabet(read_params(args.param_file))
     print(f"Using alphabet: {alphabet}")
     
-    # Get target sequence
-    target_seq = onehot2seq(model.spins)
+    # Get target sequence in the same alphabet
+    target_seq = onehot2seq(model.spins, is_dna=("T" in alphabet), is_gapped=("." in alphabet))
     print(f"Target sequence: {target_seq}")
     
     # Parse mutations
@@ -83,7 +81,7 @@ def main():
             from_idx, pos, to_idx = parse_mutation(mut_str, alphabet)
             
             # Verify the original nucleotide matches the target sequence
-            if target_seq[pos] != mut_str[0]:
+            if target_seq[pos] != alphabet[from_idx]:
                 print(f"Warning: Original nucleotide in mutation {mut_str} doesn't match target sequence ({target_seq[pos]} at position {pos+1})")
                 continue
             
