@@ -1,0 +1,17 @@
+{
+  "title": "RaptCouple",
+  "description": "Direct coupling analysis of SELEX data: sequence motifs and coupling-supported secondary structures from in vitro selection, without thermodynamic parameters.",
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "creators": [
+    { "name": "Sumi, Shunsuke" },
+    { "name": "Kawahara, Daiki" },
+    { "name": "Hada, Yuki" },
+    { "name": "Yoshii, Tatsuyuki" },
+    { "name": "Adachi, Tatsuo" },
+    { "name": "Saito, Hirohide" },
+    { "name": "Hamada, Michiaki" }
+  ],
+  "keywords": ["SELEX", "aptamer", "ribozyme", "RNA secondary structure", "direct coupling analysis", "Potts model"]
+}

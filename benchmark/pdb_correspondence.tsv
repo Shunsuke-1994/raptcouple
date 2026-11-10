@@ -1,0 +1,29 @@
+rbp	pdb	dataset	element	element_pairs	element_unpaired	n_models	best_model	best_offset	sequence_score	pairing_score	joint_score	p_joint	best_sequence_model	best_sequence_score	p_sequence	within_segment	predicted_pairs_in_window	shared_with_pdb	outcome
+RC3H1	5F5F	Jolma2020	1-20	6	8	20	JZM2020/RC3H1-construct2/topN/rep01.model_params	5	0.795	1.0	0.727	0.009	JZM2020/RC3H1-construct2/topN/rep10.model_params	0.901	0.004	False	5	4	corresponding, stem predicted
+RC3H1	5F5F	Laverty2022	1-20	6	8	20	Laverty2023/RC3H1/streme_query/rep10.model_params	9	0.749	0.833	0.666	0.001	Laverty2023/RC3H1/streme_query/rep10.model_params	0.749	0.004	False	5	4	corresponding, stem predicted
+RC3H2	4ZLD	Jolma2020	2-16	6	3	20	JZM2020/RC3H2/topN/rep07.model_params	12	0.897	0.667	0.667	0.9451	JZM2020/RC3H2/topN/rep10.model_params	0.932	0.9281	True	0	0	no corresponding candidate
+RC3H2	4ZLD	Laverty2022	2-16	6	3	0													not assayed
+RBFOX1	2N82	Jolma2020	2-22	4	13	60	JZM2020/RBFOX1-construct2/topN/rep02.model_params	12	0.56	0.5	0.414	0.4086	JZM2020/RBFOX1-construct2/topN/rep02.model_params	0.56	0.6513	True	0	0	no corresponding candidate
+RBFOX1	2N82	Laverty2022	2-22	4	13	20	Laverty2023/RBFOX1/streme_query/rep03.model_params	12	0.479	0.5	0.305	0.2637	Laverty2023/RBFOX1/topN/rep07.model_params	0.533	0.2188	True	0	0	no corresponding candidate
+SNRPA	1AUD	Jolma2020	7-18	4	4	20	JZM2020/SNRPA/topN/rep08.model_params	6	0.629	0.5	0.5	0.991	JZM2020/SNRPA/topN/rep01.model_params	0.723	0.991	False	0	0	no corresponding candidate
+SNRPA	1AUD	Laverty2022	7-18	4	4	20	Laverty2023/SNRPA/streme_query/rep04.model_params	28	0.532	0.5	0.375	0.8931	Laverty2023/SNRPA/streme_query/rep01.model_params	0.546	1.0	True	0	0	no corresponding candidate
+SNRNP70	4PKD	Jolma2020	1-22	6	10	20	JZM2020/SNRNP70/topN/rep05.model_params	12	0.415	0.5	0.22	0.9061	JZM2020/SNRNP70/topN/rep05.model_params	0.415	0.97	False	0	0	no corresponding candidate
+SNRNP70	4PKD	Laverty2022	1-22	6	10	0													not assayed
+SNRPB2	1A9N	Jolma2020	1-23	5	13	20	JZM2020/SNRPB2/streme_query/rep09.model_params	2	0.539	0.4	0.385	0.4835	JZM2020/SNRPB2/streme_query/rep09.model_params	0.539	0.6254	True	0	0	no corresponding candidate
+SNRPB2	1A9N	Laverty2022	1-23	5	13	0													not assayed
+LARP7	6D12	Jolma2020	1-19	7	5	20	JZM2020/LARP7-construct4/streme_query/rep07.model_params	3	0.764	0.714	0.685	0.1189	JZM2020/LARP7-construct4/streme_query/rep07.model_params	0.764	0.6264	False	0	0	no corresponding candidate
+LARP7	6D12	Laverty2022	1-19	7	5	0													not assayed
+NOVA2	1EC6	Jolma2020	1-20	4	12	20	JZM2020/NOVA2-construct3/topN/rep06.model_params	13	0.512	0.5	0.349	0.8062	JZM2020/NOVA2-construct3/topN/rep02.model_params	0.52	0.996	True	0	0	no corresponding candidate
+NOVA2	1EC6	Laverty2022	1-20	4	12	0													not assayed
+LIN28A	5UDZ	Jolma2020	1-19	6	7	0													not assayed
+LIN28A	5UDZ	Laverty2022	1-19	6	7	20	Laverty2023/LIN28A/streme_query/rep02.model_params	3	0.398	0.333	0.197	1.0	Laverty2023/LIN28A/topN/rep06.model_params	0.476	0.998	False	0	0	no corresponding candidate
+RBMY1A1	2FY1	Jolma2020	1-21	8	5	0													not assayed
+RBMY1A1	2FY1	Laverty2022	1-21	8	5	20	Laverty2023/RBMY1A1/topN/rep10.model_params	19	0.798	0.625	0.625	0.023	Laverty2023/RBMY1A1/streme_query/rep04.model_params	0.811	0.6713	False	0	0	corresponding, no stem predicted
+SNU13	2OZB	Jolma2020	1-33	9	15	0													not assayed
+SNU13	2OZB	Laverty2022	1-33	9	15	20	Laverty2023/SNU13/streme_query/rep01.model_params	7	0.447	0.333	0.263	0.3477	Laverty2023/SNU13/streme_query/rep01.model_params	0.447	0.6174	True	0	0	no corresponding candidate
+NOVA1	2ANR	Jolma2020	1-25	5	15	0													not assayed
+NOVA1	2ANR	Laverty2022	1-25	5	15	20	Laverty2023/NOVA1/streme_query/rep08.model_params	15	0.43	0.2	0.2	1.0	Laverty2023/NOVA1/topN/rep09.model_params	0.514	0.6573	False	0	0	no corresponding candidate
+SLBP	4L8R	Jolma2020	6-21	6	4	0													not assayed
+SLBP	4L8R	Laverty2022	6-21	6	4	20	Laverty2023/slbp/streme_query/rep08.model_params	25	0.759	0.5	0.5	0.7193	Laverty2023/slbp/streme_query/rep08.model_params	0.759	0.6663	True	0	0	no corresponding candidate
+Vts1	2ESE	Jolma2020	1-23	10	3	0													not assayed
+Vts1	2ESE	Laverty2022	1-23	10	3	20	Laverty2023/Vts1/topN/rep04.model_params	1	0.638	0.8	0.517	0.5894	Laverty2023/Vts1/topN/rep05.model_params	0.798	0.9281	False	3	3	no corresponding candidate

@@ -238,6 +238,7 @@ python scripts/simulated_annealing.py --param_file <.model_params> > annealed.fa
 # Repository layout
 
 ```
+benchmark/   the analysis scripts behind the benchmarks of the paper
 src/         library
   plmc.py        train and read Potts models; coupling scores with APC
   potts.py       PottsModel: energies, mutation effects, sampling
