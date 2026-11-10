@@ -189,6 +189,10 @@ the gap state, so `A21.` scores deleting position 21. Several mutations in one a
 evaluated together, including the couplings between them, so the result is not the sum of
 their individual effects. Use `--mutations_file` for one mutation per line.
 
+The deletion analysis of the paper uses a model built with the mother sequence (6R rank 8)
+as the query and default settings, `example/Ishida2020/config_mutation.yaml`;
+`example/reproduce/02_deletion_effects.py` scores its deletions and reproduces the correlation.
+
 ## Query-free analysis
 
 To run without supplying a query, replace steps 2 and 3 with:

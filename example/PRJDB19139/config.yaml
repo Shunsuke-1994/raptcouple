@@ -1,7 +1,7 @@
 N_random: 20
 adapter_3: TGCTCGAGAAAAACAAGACGTAA 
 adapter_5: AATACGACTCACTATAGGGCA
-data_dir: ./where_the_data_is
+data_dir: ./example/PRJDB19139/data
 fasta_annotation:
   1st_round.fa: RAPT27-1R
   2nd_round.fa: RAPT27-2R
@@ -12,7 +12,7 @@ remove_lowcount:
   2nd_round.fa: 1
 MSA_parameters:
   all_fasta: ./example/PRJDB19139/data/PRJDB19139.count.ann.all_selex.unique.fa
-  target_id: 4R-143118-1-0.99-224802
+  target_id: RAPT27-4R-143118-1-0.99-224802
   save_dir: ./example/PRJDB19139/outputs
   prefix: ""
   iters: 10
@@ -25,8 +25,8 @@ MSA_parameters:
   incdomT: 5
   print_result: true
 Potts_parameters:
-  input_fasta: ./example/PRJDB19139/outputs/4R-143118-1-0.99-224802.msa
-  target_id: 4R-143118-1-0.99-224802
+  input_fasta: ./example/PRJDB19139/outputs/RAPT27-4R-143118-1-0.99-224802.msa
+  target_id: RAPT27-4R-143118-1-0.99-224802
   sim_threshold: 0.05
   vocab: AUGC.
   iters: 200

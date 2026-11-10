@@ -5,9 +5,13 @@ Two steps:
 1. Score deletions with the Potts model. Deleting a nucleotide is evaluated as a change to
    the model's gap state, so the effect is an energy difference the model can compute
    directly. This is what `scripts/predict_mutation_effects.py` does.
-2. Correlate the predicted effects of the measured deletion variants with their relative
-   binding. The measured values and the scores used in the paper are in
-   `example/Ishida2020/variants/mutation_effect_predictions.csv`.
+2. Score every single-nucleotide deletion of the mother sequence, keep the most favourable
+   score where two deletions give the same variant (e.g. in a run of G), and correlate the
+   scores of the measured variants with their relative binding. The measured values are in
+   `example/Ishida2020/variants/mutation_effect_predictions.csv`, together with the scores.
+
+The model is the one used in the paper: the mother sequence (6R rank 8) as the query, default
+jackhmmer settings (`example/Ishida2020/config_mutation.yaml`; 769 sequences, N_eff = 33.4).
 
     python example/reproduce/02_deletion_effects.py
 
@@ -26,7 +30,7 @@ from src.plmc import read_params
 from src.potts import PottsModel
 from src.util import onehot2seq
 
-MODEL = "example/Ishida2020/outputs/Ishida2020-6R-1-2626-55264.43.model_params"
+MODEL = "example/Ishida2020/outputs/Ishida2020-6R-8-527-11090.77-0.model_params"
 MEASURED = "example/Ishida2020/variants/mutation_effect_predictions.csv"
 
 # ---------------------------------------------------------------- 1. scoring deletions
@@ -59,9 +63,21 @@ print(f"the two single deletions added:      {separately:.3f}")
 print(f"difference (their coupling):         {both - separately:+.3f}")
 
 # ---------------------------------------------------------------- 2. measured variants
+# Every deletion of the mother sequence; two deletions in a run give the same variant, and
+# the more favourable (lower) energy change is kept for it.
+mother = sequence.replace(".", "")
+columns = [i for i, base in enumerate(sequence) if base != "."]
+scores = {}
+for k, column in enumerate(columns):
+    variant = mother[:k] + mother[k + 1:]
+    change = model.compute_delta_energy([(alphabet.index(sequence[column]), column, gap)])
+    scores[variant] = min(change, scores.get(variant, np.inf))
+
 rows = list(csv.DictReader(open(MEASURED)))
-predicted = np.array([-float(row["delta energy"]) for row in rows])
+predicted = np.array([-scores[row["seq_x"]] for row in rows])
 binding = np.array([float(row["relative binding"]) for row in rows])
+stored = np.array([-float(row["delta energy"]) for row in rows])
+assert np.allclose(predicted, stored), "scores differ from the stored values"
 rho, p_value = spearmanr(predicted, binding)
 
 print(f"\n{len(rows)} measured deletion variants")
