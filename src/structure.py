@@ -138,10 +138,17 @@ def fold(
         min_loop_length=3,
         threshold = 3,
         only_match_col = True,
-        sanity_check = True,
+        sanity_check = False,
         nolp = True
         ):
-    
+    """Fold the focus sequence from APC-corrected couplings.
+
+    Pairs are retained where the coupling z-score is at least ``threshold`` and weighted by
+    their APC-corrected Frobenius norm. By default retained pairs are not restricted to
+    Watson-Crick or G-U combinations of the focus sequence (``sanity_check=False``), as in the
+    paper; set ``sanity_check=True`` to keep only A-U, G-C and G-U pairs.
+    """
+
     if only_match_col:
         pairs = detect_coupling(params, threshold=threshold, min_dist=min_loop_length+1, sanity_check=sanity_check, use_mask_min_dist=True)
         matched_cols = [i for i,n in enumerate(params["target_seq"]) if n in "AUGC"]

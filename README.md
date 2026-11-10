@@ -170,6 +170,12 @@ python scripts/fold_by_coupling.py \
 
 Add `--no-nolp` to allow isolated base pairs, as earlier versions did.
 
+Retained pairs are **not restricted to Watson–Crick or G–U combinations** of the focus
+sequence, so that the structure follows the couplings alone (this is the setting used in
+the paper; modified or non-canonical pairs such as the U–U pair of the ACMP hit #2 are kept).
+Add `--canonical-only` to keep only A–U, G–C and G–U pairs. In Python, the same switch is
+`fold(..., sanity_check=True)`.
+
 ## 5. Mutation effects
 
 ```bash
