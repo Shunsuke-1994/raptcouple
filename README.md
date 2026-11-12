@@ -6,7 +6,10 @@ supported by covariation between positions, and the **effect of mutations** on f
 uses no thermodynamic parameters, so it also applies to aptamers and ribozymes built from
 modified nucleotides, for which folding parameters are unavailable or unreliable.
 
-![pipeline](docs/pipeline.png)
+![overview](docs/overview.png)
+
+<sub>Figure 1 of the paper: the workflow (a), what the trained model yields (b), the
+datasets it was evaluated on (c) and what the results are used for (d).</sub>
 
 There are two ways to run it. In **target-guided** mode you supply a query sequence and the
 alignment is built around it. In **query-free** mode the queries are generated from the pool
@@ -251,7 +254,8 @@ scripts/     command-line entry points, one per pipeline step
 example/     datasets with their configs and trained models
   reproduce/     short scripts that reproduce published results
 figures/     notebooks for the figures of the paper
-docs/        README figures (docs/make_figures.py regenerates them)
+docs/        README figures (overview.png is Fig. 1 of the paper;
+             docs/make_figures.py regenerates the other one)
 ```
 
 Several modules run their own checks when executed directly, for example

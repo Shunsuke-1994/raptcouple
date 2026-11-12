@@ -2,9 +2,9 @@
 
     python docs/make_figures.py
 
-Writes docs/pipeline.png (the two ways to run RaptCouple) and docs/example_output.png
-(couplings and the structure they support, from the model in example/Ishida2020/).
-Needs matplotlib; the second figure also reads the bundled model file.
+Writes docs/example_output.png (couplings and the structure they support, from the
+model in example/Ishida2020/). Needs matplotlib and reads the bundled model file.
+The overview figure at the top of the README is Fig. 1 of the paper, not drawn here.
 """
 import os
 import sys
@@ -35,40 +35,6 @@ def box(ax, x, y, w, h, label, colour, text_colour=TEXT, size=9, weight="normal"
 def arrow(ax, start, end, colour=TEXT):
     ax.add_patch(FancyArrowPatch(start, end, arrowstyle="-|>", mutation_scale=11,
                                  linewidth=1.1, color=colour, shrinkA=2, shrinkB=2))
-
-
-def pipeline():
-    fig, ax = plt.subplots(figsize=(9.6, 3.5))
-    ax.set_xlim(0, 10); ax.set_ylim(0, 3.6); ax.axis("off")
-
-    box(ax, 0.1, 1.45, 1.35, 0.7, "SELEX\nreads", GREY)
-    box(ax, 1.75, 1.45, 1.5, 0.7, "preprocess\n(trim, count, merge)", GREY, size=8)
-
-    # the two ways to obtain a query
-    box(ax, 3.55, 2.35, 2.5, 0.75,
-        "you supply a query\ntarget-guided mode", BLUE, "white", 8.5, "bold")
-    box(ax, 3.55, 0.5, 2.5, 0.75,
-        "seeds from the pool itself\nquery-free mode (STREME / vsearch)", GREEN, "white", 8.5, "bold")
-
-    box(ax, 6.35, 1.45, 1.5, 0.7, "jackhmmer\nalignment", GREY, size=8)
-    box(ax, 8.15, 1.45, 1.7, 0.7, "Potts model\n(plmc)", GREY, size=8)
-
-    arrow(ax, (1.45, 1.8), (1.75, 1.8))
-    arrow(ax, (3.25, 1.8), (3.55, 2.72))
-    arrow(ax, (3.25, 1.8), (3.55, 0.87))
-    arrow(ax, (6.05, 2.72), (6.35, 1.8))
-    arrow(ax, (6.05, 0.87), (6.35, 1.8))
-    arrow(ax, (7.85, 1.8), (8.15, 1.8))
-
-    # what the trained model gives you
-    outputs = ["sequence motifs", "coupling-supported structure", "mutation effects"]
-    ax.text(9.0, 1.2, "\n".join("• " + o for o in outputs), ha="center", va="top",
-            fontsize=8, color=TEXT, linespacing=1.6)
-
-    fig.tight_layout()
-    fig.savefig(os.path.join(HERE, "pipeline.png"), dpi=200, bbox_inches="tight",
-                facecolor="white")
-    plt.close(fig)
 
 
 def example_output():
@@ -121,6 +87,5 @@ def example_output():
 
 
 if __name__ == "__main__":
-    pipeline()
     example_output()
-    print("wrote docs/pipeline.png and docs/example_output.png")
+    print("wrote docs/example_output.png")
